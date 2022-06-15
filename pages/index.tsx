@@ -15,11 +15,11 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header/>
-      <main className={'flex xl:flex-row flex-col p-5 gap-10'}>
+      <main className={styles['main-container'] + ' flex xl:flex-row flex-col p-5 gap-10 mb-9'}>
           <div className="basis-1/2">
               <Calendar/>
           </div>
-          <div className={'basis-1/2 xl:p-0 p-10'}>
+          <div className={'overflow-y-auto basis-1/2 xl:p-0 p-10'}>
               <Information/>
           </div>
       </main>

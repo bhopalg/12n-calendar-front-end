@@ -159,7 +159,7 @@ export default function Calendar() {
                 </div>
             </header>
             <div className={`${styles['day-row']} shadow ring-1 ring-black ring-opacity-5 lg:flex lg:flex-auto lg:flex-col`}>
-                <div className={`${styles['day-out-div']} grid grid-cols-7 gap-px border-b text-center text-xs font-semibold leading-6 text-gray-700 lg:flex-none`}>
+                <div className={`${styles['day-out-div']} pl-3 pr-3 grid grid-cols-7 gap-px border-b text-center text-xs font-semibold leading-6 text-gray-700 lg:flex-none`}>
                     <div className={`${styles['day-div']} py-2`}>
                         M<span className="sr-only sm:not-sr-only">on</span>
                     </div>
@@ -183,8 +183,8 @@ export default function Calendar() {
                     </div>
                 </div>
 
-                <div className={"flex text-xs leading-6 text-gray-700 lg:flex-auto " + styles['calendar']}>
-                    <div className="hidden w-full lg:grid lg:grid-cols-7 lg:grid-rows-6 lg:gap-px">
+                <div className={"flex text-xs leading-6 text-gray-700 lg:flex-auto pl-3 pr-3 " + styles['calendar']}>
+                    <div className="hidden w-full lg:grid lg:grid-cols-7 lg:grid-rows-6 lg:gap-1.5">
                         {days.map((day) => (
                             <div
                                 key={day.date}

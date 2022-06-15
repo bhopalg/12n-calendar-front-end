@@ -108,6 +108,11 @@
   margin-left: 0.5rem;
 }
 
+.main-container {
+  padding-top: 10%;
+  height: 100vh;
+}
+
 @media (max-width: 600px) {
   .grid {
     width: 100%;
