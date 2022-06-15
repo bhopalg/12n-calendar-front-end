@@ -188,7 +188,7 @@ export default function Calendar() {
                         {days.map((day) => (
                             <div
                                 key={day.date}
-                                className={`${day.isCurrentMonth ? `${styles['current-cal-col']} pl-2 pr-2 pb-2 pt-2` : ('text-gray-500 relative py-2 px-3 ' + styles['cal-col'])}`}
+                                className={`${day.isCurrentMonth ? (day.isToday ? `${styles['today-cal-col']} pl-2 pr-2 pb-2 pt-2` : `${styles['current-cal-col']} pl-2 pr-2 pb-2 pt-2`) : ('text-gray-500 relative py-2 px-3 ' + styles['cal-col'])}`}
                             >
                                 {
                                     day.isCurrentMonth ? <>

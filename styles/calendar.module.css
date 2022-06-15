@@ -34,3 +34,7 @@
 .event-name, .event-datetime, .not-today {
     color: #ffffff;
 }
+
+.today-cal-col {
+    background-color: #ed5a5a;
+}
