@@ -6,7 +6,7 @@
 }
 
 .logo-title-nft {
-    color: theme('colors.primary-color');
+    color: #ed5a5a;
 }
 
 .logo-title-investor {
@@ -14,6 +14,14 @@
 }
 
 .header-home-link {
-    border-color: theme('colors.primary-color');
-    color: theme('colors.primary-color');
+    border-color: #ed5a5a;
+    color: #ed5a5a;
+    background: transparent;
+    transition: 0.3s;
+}
+
+.header-home-link:hover {
+    border-color: #ed5a5a;
+    color: #ed5a5a;
+    background: #303d50;
 }

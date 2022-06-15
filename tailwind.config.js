@@ -5,12 +5,13 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    colors: {
-      "primary-background-color": "#1a222d",
-      "primary-color": "#ed5a5a",
-      "secondary-color": "#263141",
-      "tertiary-color": "#303d50",
-    },
+    // colors: {
+    //   "primary-background-color": "#1a222d",
+    //   "primary-color": "#ed5a5a",
+    //   "secondary-color": "#263141",
+    //   "tertiary-color": "#303d50",
+    //   "bg-white": "#FFFFFF",
+    // },
     extend: {},
   },
   plugins: [],

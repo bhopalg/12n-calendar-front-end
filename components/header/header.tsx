@@ -2,7 +2,7 @@ import styles from '../../styles/header.module.css';
 
 function Header() {
     return (
-        <header className={'relative bg-white'}>
+        <header className={'relative bg-'}>
             <div className="mx-auto px-4 sm:px-6">
                 <div className="flex justify-between items-center py-6 md:justify-start md:space-x-10">
                     <div className="flex justify-start lg:w-0 lg:flex-1">
