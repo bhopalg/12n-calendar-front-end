@@ -18,7 +18,7 @@ const Home: NextPage = () => {
           <div className="basis-1/2">
               <Calendar/>
           </div>
-          <div className={'basis-1/4 xl:p-0 p-10'}>Hello</div>
+          <div className={'basis-1/2 xl:p-0 p-10'}>Hello</div>
       </main>
 
     </div>

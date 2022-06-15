@@ -1,0 +1,36 @@
+.calendar-container {
+    background-color: rgb(40, 49, 64);
+}
+
+.calendar-current-month {
+    color: #ffffff;
+}
+
+.previous-month-button, .next-month-button, .today-button, .day-row, .day-div, .cal-col {
+    background: rgb(40, 49, 64);
+    color: #ffffff;
+}
+
+.previous-month-button-text, .next-month-button-text, .next-month-button-text {
+    color: #ffffff;
+}
+
+.calendar-header, .day-out-div {
+    border-bottom: 1px solid #303d50;
+}
+
+.calendar {
+    background: rgb(40, 49, 64);
+}
+
+.cal-col {
+    background: rgb(40, 49, 64);
+}
+
+.current-cal-col {
+    background: rgb(51, 61, 78);
+}
+
+.event-name, .event-datetime, .not-today {
+    color: #ffffff;
+}

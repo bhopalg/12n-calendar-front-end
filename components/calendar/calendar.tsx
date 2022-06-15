@@ -12,55 +12,55 @@ import {
 import { Menu, Transition } from "@headlessui/react";
 
 const days = [
-    { date: "2021-12-27", events: [] },
-    { date: "2021-12-28", events: [] },
-    { date: "2021-12-29", events: [] },
-    { date: "2021-12-30", events: [] },
-    { date: "2021-12-31", events: [] },
-    { date: "2022-01-01", isCurrentMonth: true, events: [] },
-    { date: "2022-01-02", isCurrentMonth: true, events: [] },
+    { date: "2022-05-27", isCurrentMonth: false, events: [] },
+    { date: "2022-05-28", isCurrentMonth: false, events: [] },
+    { date: "2022-05-29", isCurrentMonth: false, events: [] },
+    { date: "2022-05-30", isCurrentMonth: false, events: [] },
+    { date: "2022-05-31", isCurrentMonth: false, events: [] },
+    { date: "2022-06-01", isCurrentMonth: true, events: [] },
+    { date: "2022-06-02", isCurrentMonth: true, events: [] },
     {
-        date: "2022-01-03",
+        date: "2022-06-03",
         isCurrentMonth: true,
         events: [
             {
                 id: 1,
                 name: "Design review",
                 time: "10AM",
-                datetime: "2022-01-03T10:00",
+                datetime: "2022-06-03T10:00",
                 href: "#",
             },
             {
                 id: 2,
                 name: "Sales meeting",
                 time: "2PM",
-                datetime: "2022-01-03T14:00",
+                datetime: "2022-06-03T14:00",
                 href: "#",
             },
         ],
     },
-    { date: "2022-01-04", isCurrentMonth: true, events: [] },
-    { date: "2022-01-05", isCurrentMonth: true, events: [] },
-    { date: "2022-01-06", isCurrentMonth: true, events: [] },
+    { date: "2022-06-04", isCurrentMonth: true, events: [] },
+    { date: "2022-06-05", isCurrentMonth: true, events: [] },
+    { date: "2022-06-06", isCurrentMonth: true, events: [] },
     {
-        date: "2022-01-07",
+        date: "2022-06-07",
         isCurrentMonth: true,
         events: [
             {
                 id: 3,
                 name: "Date night",
                 time: "6PM",
-                datetime: "2022-01-08T18:00",
+                datetime: "2022-06-08T18:00",
                 href: "#",
             },
         ],
     },
-    { date: "2022-01-08", isCurrentMonth: true, events: [] },
-    { date: "2022-01-09", isCurrentMonth: true, events: [] },
-    { date: "2022-01-10", isCurrentMonth: true, events: [] },
-    { date: "2022-01-11", isCurrentMonth: true, events: [] },
+    { date: "2022-06-08", isCurrentMonth: true, events: [] },
+    { date: "2022-06-09", isCurrentMonth: true, events: [] },
+    { date: "2022-06-10", isCurrentMonth: true, events: [] },
+    { date: "2022-06-11", isCurrentMonth: true, events: [] },
     {
-        date: "2022-01-12",
+        date: "2022-06-12",
         isCurrentMonth: true,
         isToday: true,
         events: [
@@ -68,22 +68,22 @@ const days = [
                 id: 6,
                 name: "Sam's birthday party",
                 time: "2PM",
-                datetime: "2022-01-25T14:00",
+                datetime: "2022-06-25T14:00",
                 href: "#",
             },
         ],
     },
-    { date: "2022-01-13", isCurrentMonth: true, events: [] },
-    { date: "2022-01-14", isCurrentMonth: true, events: [] },
-    { date: "2022-01-15", isCurrentMonth: true, events: [] },
-    { date: "2022-01-16", isCurrentMonth: true, events: [] },
-    { date: "2022-01-17", isCurrentMonth: true, events: [] },
-    { date: "2022-01-18", isCurrentMonth: true, events: [] },
-    { date: "2022-01-19", isCurrentMonth: true, events: [] },
-    { date: "2022-01-20", isCurrentMonth: true, events: [] },
-    { date: "2022-01-21", isCurrentMonth: true, events: [] },
+    { date: "2022-06-13", isCurrentMonth: true, events: [] },
+    { date: "2022-06-14", isCurrentMonth: true, events: [] },
+    { date: "2022-06-15", isCurrentMonth: true, events: [] },
+    { date: "2022-06-16", isCurrentMonth: true, events: [] },
+    { date: "2022-06-17", isCurrentMonth: true, events: [] },
+    { date: "2022-06-18", isCurrentMonth: true, events: [] },
+    { date: "2022-06-19", isCurrentMonth: true, events: [] },
+    { date: "2022-06-20", isCurrentMonth: true, events: [] },
+    { date: "2022-06-21", isCurrentMonth: true, events: [] },
     {
-        date: "2022-01-22",
+        date: "2022-06-22",
         isCurrentMonth: true,
         isSelected: true,
         events: [
@@ -91,339 +91,147 @@ const days = [
                 id: 4,
                 name: "Maple syrup museum",
                 time: "3PM",
-                datetime: "2022-01-22T15:00",
+                datetime: "2022-06-22T15:00",
                 href: "#",
             },
             {
                 id: 5,
                 name: "Hockey game",
                 time: "7PM",
-                datetime: "2022-01-22T19:00",
+                datetime: "2022-06-22T19:00",
                 href: "#",
             },
         ],
     },
-    { date: "2022-01-23", isCurrentMonth: true, events: [] },
-    { date: "2022-01-24", isCurrentMonth: true, events: [] },
-    { date: "2022-01-25", isCurrentMonth: true, events: [] },
-    { date: "2022-01-26", isCurrentMonth: true, events: [] },
-    { date: "2022-01-27", isCurrentMonth: true, events: [] },
-    { date: "2022-01-28", isCurrentMonth: true, events: [] },
-    { date: "2022-01-29", isCurrentMonth: true, events: [] },
-    { date: "2022-01-30", isCurrentMonth: true, events: [] },
-    { date: "2022-01-31", isCurrentMonth: true, events: [] },
-    { date: "2022-02-01", events: [] },
-    { date: "2022-02-02", events: [] },
-    {
-        date: "2022-02-03",
-        events: [
-            {
-                id: 7,
-                name: "Cinema with friends",
-                time: "9PM",
-                datetime: "2022-02-04T21:00",
-                href: "#",
-            },
-        ],
-    },
-    { date: "2022-02-04", events: [] },
-    { date: "2022-02-05", events: [] },
-    { date: "2022-02-06", events: [] },
+    { date: "2022-06-23", isCurrentMonth: true, events: [] },
+    { date: "2022-06-24", isCurrentMonth: true, events: [] },
+    { date: "2022-06-25", isCurrentMonth: true, events: [] },
+    { date: "2022-06-26", isCurrentMonth: true, events: [] },
+    { date: "2022-06-27", isCurrentMonth: true, events: [] },
+    { date: "2022-06-28", isCurrentMonth: true, events: [] },
+    { date: "2022-06-29", isCurrentMonth: true, events: [] },
+    { date: "2022-06-30", isCurrentMonth: true, events: [] },
+    { date: "2022-07-01", isCurrentMonth: false, events: [] },
+    { date: "2022-07-02", isCurrentMonth: false, events: [] },
+    { date: "2022-07-03", isCurrentMonth: false, events: [] },
+    { date: "2022-07-04", isCurrentMonth: false, events: [] },
+    { date: "2022-07-05", isCurrentMonth: false, events: [] },
+    { date: "2022-07-06", isCurrentMonth: false, events: [] },
 ];
 const selectedDay = days.find((day) => day.isSelected);
 
 function classNames(...classes) {
+    console.log(classes);
     return classes.filter(Boolean).join(" ");
 }
 
 export default function Calendar() {
     return (
-        <div className="bg-white lg:flex lg:h-full lg:flex-col">
-            <header className="relative z-20 flex items-center justify-between border-b border-gray-200 py-4 px-6 lg:flex-none">
-                <h1 className="text-lg font-semibold text-gray-900">
+        <div className={"lg:flex lg:h-full lg:flex-col " + styles['calendar-container']}>
+            <header className={`${styles['calendar-header']} relative z-20 flex items-center justify-between border-b py-4 px-6 lg:flex-none`}>
+                <h1 className={`text-lg font-semibold ${styles['calendar-current-month']}`}>
                     <time dateTime="2022-01">January 2022</time>
                 </h1>
                 <div className="flex items-center">
                     <div className="flex items-center rounded-md shadow-sm md:items-stretch">
                         <button
                             type="button"
-                            className="flex items-center justify-center rounded-l-md border border-r-0 border-gray-300 bg-white py-2 pl-3 pr-4 text-gray-400 hover:text-gray-500 focus:relative md:w-9 md:px-2 md:hover:bg-gray-50"
+                            className={`${styles['previous-month-button']} flex items-center justify-center rounded-l-md border border-r-0 border-gray-300 bg-white py-2 pl-3 pr-4 text-gray-400 hover:text-gray-500 focus:relative md:w-9 md:px-2 md:hover:bg-gray-50`}
                         >
-                            <span className="sr-only">Previous month</span>
+                            <span className={`sr-only ${styles['previous-month-button-text']}`}>Previous month</span>
                             <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
                         </button>
                         <button
                             type="button"
-                            className="hidden border-t border-b border-gray-300 bg-white px-3.5 text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900 focus:relative md:block"
+                            className={`${styles['today-button']} hidden border-t border-b border-gray-300 bg-white px-3.5 text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900 focus:relative md:block`}
                         >
                             Today
                         </button>
                         <span className="relative -mx-px h-5 w-px bg-gray-300 md:hidden" />
                         <button
                             type="button"
-                            className="flex items-center justify-center rounded-r-md border border-l-0 border-gray-300 bg-white py-2 pl-4 pr-3 text-gray-400 hover:text-gray-500 focus:relative md:w-9 md:px-2 md:hover:bg-gray-50"
+                            className={`${styles['next-month-button']} flex items-center justify-center rounded-r-md border border-l-0 border-gray-300 bg-white py-2 pl-4 pr-3 text-gray-400 hover:text-gray-500 focus:relative md:w-9 md:px-2 md:hover:bg-gray-50`}
                         >
-                            <span className="sr-only">Next month</span>
+                            <span className={`sr-only ${styles['next-month-button-text']}`}>Next month</span>
                             <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
                         </button>
                     </div>
-                    <div className="hidden md:ml-4 md:flex md:items-center">
-                        <Menu as="div" className="relative">
-                            <Menu.Button
-                                type="button"
-                                className="flex items-center rounded-md border border-gray-300 bg-white py-2 pl-3 pr-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50"
-                            >
-                                Month view
-                                <ChevronDownIcon
-                                    className="ml-2 h-5 w-5 text-gray-400"
-                                    aria-hidden="true"
-                                />
-                            </Menu.Button>
-
-                            <Transition
-                                as={Fragment}
-                                enter="transition ease-out duration-100"
-                                enterFrom="transform opacity-0 scale-95"
-                                enterTo="transform opacity-100 scale-100"
-                                leave="transition ease-in duration-75"
-                                leaveFrom="transform opacity-100 scale-100"
-                                leaveTo="transform opacity-0 scale-95"
-                            >
-                                <Menu.Items className="focus:outline-none absolute right-0 mt-3 w-36 origin-top-right overflow-hidden rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5">
-                                    <div className="py-1">
-                                        <Menu.Item>
-                                            {({ active }) => (
-                                                <a
-                                                    href="#"
-                                                    className={classNames(
-                                                        active
-                                                            ? "bg-gray-100 text-gray-900"
-                                                            : "text-gray-700",
-                                                        "block px-4 py-2 text-sm"
-                                                    )}
-                                                >
-                                                    Day view
-                                                </a>
-                                            )}
-                                        </Menu.Item>
-                                        <Menu.Item>
-                                            {({ active }) => (
-                                                <a
-                                                    href="#"
-                                                    className={classNames(
-                                                        active
-                                                            ? "bg-gray-100 text-gray-900"
-                                                            : "text-gray-700",
-                                                        "block px-4 py-2 text-sm"
-                                                    )}
-                                                >
-                                                    Week view
-                                                </a>
-                                            )}
-                                        </Menu.Item>
-                                        <Menu.Item>
-                                            {({ active }) => (
-                                                <a
-                                                    href="#"
-                                                    className={classNames(
-                                                        active
-                                                            ? "bg-gray-100 text-gray-900"
-                                                            : "text-gray-700",
-                                                        "block px-4 py-2 text-sm"
-                                                    )}
-                                                >
-                                                    Month view
-                                                </a>
-                                            )}
-                                        </Menu.Item>
-                                        <Menu.Item>
-                                            {({ active }) => (
-                                                <a
-                                                    href="#"
-                                                    className={classNames(
-                                                        active
-                                                            ? "bg-gray-100 text-gray-900"
-                                                            : "text-gray-700",
-                                                        "block px-4 py-2 text-sm"
-                                                    )}
-                                                >
-                                                    Year view
-                                                </a>
-                                            )}
-                                        </Menu.Item>
-                                    </div>
-                                </Menu.Items>
-                            </Transition>
-                        </Menu>
-                    </div>
-                    <Menu as="div" className="relative ml-6 md:hidden">
-                        <Menu.Button className="-mx-2 flex items-center rounded-full border border-transparent p-2 text-gray-400 hover:text-gray-500">
-                            <span className="sr-only">Open menu</span>
-                            <DotsHorizontalIcon className="h-5 w-5" aria-hidden="true" />
-                        </Menu.Button>
-
-                        <Transition
-                            as={Fragment}
-                            enter="transition ease-out duration-100"
-                            enterFrom="transform opacity-0 scale-95"
-                            enterTo="transform opacity-100 scale-100"
-                            leave="transition ease-in duration-75"
-                            leaveFrom="transform opacity-100 scale-100"
-                            leaveTo="transform opacity-0 scale-95"
-                        >
-                            <Menu.Items className="focus:outline-none absolute right-0 mt-3 w-36 origin-top-right divide-y divide-gray-100 overflow-hidden rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5">
-                                <div className="py-1">
-                                    <Menu.Item>
-                                        {({ active }) => (
-                                            <a
-                                                href="#"
-                                                className={classNames(
-                                                    active
-                                                        ? "bg-gray-100 text-gray-900"
-                                                        : "text-gray-700",
-                                                    "block px-4 py-2 text-sm"
-                                                )}
-                                            >
-                                                Go to today
-                                            </a>
-                                        )}
-                                    </Menu.Item>
-                                </div>
-                                <div className="py-1">
-                                    <Menu.Item>
-                                        {({ active }) => (
-                                            <a
-                                                href="#"
-                                                className={classNames(
-                                                    active
-                                                        ? "bg-gray-100 text-gray-900"
-                                                        : "text-gray-700",
-                                                    "block px-4 py-2 text-sm"
-                                                )}
-                                            >
-                                                Day view
-                                            </a>
-                                        )}
-                                    </Menu.Item>
-                                    <Menu.Item>
-                                        {({ active }) => (
-                                            <a
-                                                href="#"
-                                                className={classNames(
-                                                    active
-                                                        ? "bg-gray-100 text-gray-900"
-                                                        : "text-gray-700",
-                                                    "block px-4 py-2 text-sm"
-                                                )}
-                                            >
-                                                Week view
-                                            </a>
-                                        )}
-                                    </Menu.Item>
-                                    <Menu.Item>
-                                        {({ active }) => (
-                                            <a
-                                                href="#"
-                                                className={classNames(
-                                                    active
-                                                        ? "bg-gray-100 text-gray-900"
-                                                        : "text-gray-700",
-                                                    "block px-4 py-2 text-sm"
-                                                )}
-                                            >
-                                                Month view
-                                            </a>
-                                        )}
-                                    </Menu.Item>
-                                    <Menu.Item>
-                                        {({ active }) => (
-                                            <a
-                                                href="#"
-                                                className={classNames(
-                                                    active
-                                                        ? "bg-gray-100 text-gray-900"
-                                                        : "text-gray-700",
-                                                    "block px-4 py-2 text-sm"
-                                                )}
-                                            >
-                                                Year view
-                                            </a>
-                                        )}
-                                    </Menu.Item>
-                                </div>
-                            </Menu.Items>
-                        </Transition>
-                    </Menu>
                 </div>
             </header>
-            <div className="shadow ring-1 ring-black ring-opacity-5 lg:flex lg:flex-auto lg:flex-col">
-                <div className="grid grid-cols-7 gap-px border-b border-gray-300 bg-gray-200 text-center text-xs font-semibold leading-6 text-gray-700 lg:flex-none">
-                    <div className="bg-white py-2">
+            <div className={`${styles['day-row']} shadow ring-1 ring-black ring-opacity-5 lg:flex lg:flex-auto lg:flex-col`}>
+                <div className={`${styles['day-out-div']} grid grid-cols-7 gap-px border-b text-center text-xs font-semibold leading-6 text-gray-700 lg:flex-none`}>
+                    <div className={`${styles['day-div']} py-2`}>
                         M<span className="sr-only sm:not-sr-only">on</span>
                     </div>
-                    <div className="bg-white py-2">
+                    <div className={`${styles['day-div']} py-2`}>
                         T<span className="sr-only sm:not-sr-only">ue</span>
                     </div>
-                    <div className="bg-white py-2">
+                    <div className={`${styles['day-div']} py-2`}>
                         W<span className="sr-only sm:not-sr-only">ed</span>
                     </div>
-                    <div className="bg-white py-2">
+                    <div className={`${styles['day-div']} py-2`}>
                         T<span className="sr-only sm:not-sr-only">hu</span>
                     </div>
-                    <div className="bg-white py-2">
+                    <div className={`${styles['day-div']} py-2`}>
                         F<span className="sr-only sm:not-sr-only">ri</span>
                     </div>
-                    <div className="bg-white py-2">
+                    <div className={`${styles['day-div']} py-2`}>
                         S<span className="sr-only sm:not-sr-only">at</span>
                     </div>
-                    <div className="bg-white py-2">
+                    <div className={`${styles['day-div']} py-2`}>
                         S<span className="sr-only sm:not-sr-only">un</span>
                     </div>
                 </div>
-                <div className="flex bg-gray-200 text-xs leading-6 text-gray-700 lg:flex-auto">
+
+                <div className={"flex text-xs leading-6 text-gray-700 lg:flex-auto " + styles['calendar']}>
                     <div className="hidden w-full lg:grid lg:grid-cols-7 lg:grid-rows-6 lg:gap-px">
                         {days.map((day) => (
                             <div
                                 key={day.date}
-                                className={classNames(
-                                    day.isCurrentMonth ? "bg-white" : "bg-gray-50 text-gray-500",
-                                    "relative py-2 px-3"
-                                )}
+                                className={`${day.isCurrentMonth ? `${styles['current-cal-col']} pl-2 pr-2 pb-2 pt-2` : ('text-gray-500 relative py-2 px-3 ' + styles['cal-col'])}`}
                             >
-                                <time
-                                    dateTime={day.date}
-                                    className={
-                                        day.isToday
-                                            ? "flex h-6 w-6 items-center justify-center rounded-full bg-indigo-600 font-semibold text-white"
-                                            : undefined
-                                    }
-                                >
-                                    {day.date.split("-").pop().replace(/^0/, "")}
-                                </time>
-                                {day.events.length > 0 && (
-                                    <ol className="mt-2">
-                                        {day.events.slice(0, 2).map((event) => (
-                                            <li key={event.id}>
-                                                <a href={event.href} className="group flex">
-                                                    <p className="flex-auto truncate font-medium text-gray-900 group-hover:text-indigo-600">
-                                                        {event.name}
-                                                    </p>
-                                                    <time
-                                                        dateTime={event.datetime}
-                                                        className="ml-3 hidden flex-none text-gray-500 group-hover:text-indigo-600 xl:block"
-                                                    >
-                                                        {event.time}
-                                                    </time>
-                                                </a>
-                                            </li>
-                                        ))}
-                                        {day.events.length > 2 && (
-                                            <li className="text-gray-500">
-                                                + {day.events.length - 2} more
-                                            </li>
+                                {
+                                    day.isCurrentMonth ? <>
+                                        <time
+                                            dateTime={day.date}
+                                            className={
+                                                day.isToday
+                                                    ? "flex items-center rounded-full font-semibold text-white " + styles['today']
+                                                    : styles['not-today']
+                                            }
+                                        >
+                                            {day.date.split("-").pop().replace(/^0/, "")}
+                                        </time>
+                                        {day.events.length > 0 && (
+                                            <ol className="mt-2">
+                                                {day.events.slice(0, 2).map((event) => (
+                                                    <li key={event.id}>
+                                                        <a href={event.href} className="group flex">
+                                                            <p className={`${styles['event-name']} flex-auto truncate font-medium text-white-900 group-hover:text-indigo-600`}>
+                                                                {event.name}
+                                                            </p>
+                                                            <time
+                                                                dateTime={event.datetime}
+                                                                className={`${styles['event-datetime']}  ml-3 hidden flex-none text-white-500 group-hover:text-indigo-600 xl:block`}
+                                                            >
+                                                                {event.time}
+                                                            </time>
+                                                        </a>
+                                                    </li>
+                                                ))}
+                                                {day.events.length > 2 && (
+                                                    <li className="text-gray-500">
+                                                        + {day.events.length - 2} more
+                                                    </li>
+                                                )}
+                                            </ol>
                                         )}
-                                    </ol>
-                                )}
+                                    </>
+                                        :
+                                        <>
+                                            <ol className="mt-2"></ol>
+                                        </>
+                                }
                             </div>
                         ))}
                     </div>
