@@ -1,0 +1,19 @@
+.logo-title {
+    font-size: 22px;
+    font-weight: 900;
+    letter-spacing: 1.5px;
+    line-height: 42px;
+}
+
+.logo-title-nft {
+    color: theme('colors.primary-color');
+}
+
+.logo-title-investor {
+    color: #fff;
+}
+
+.header-home-link {
+    border-color: theme('colors.primary-color');
+    color: theme('colors.primary-color');
+}
