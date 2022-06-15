@@ -200,7 +200,8 @@ export default function Calendar() {
                                                     : styles['not-today']
                                             }
                                         >
-                                            {day.date.split("-").pop().replace(/^0/, "")}
+                                            {    // @ts-ignore
+                                                day.date.split("-").pop().replace(/^0/, "")}
                                         </time>
                                         {day.events.length > 0 && (
                                             <ol className="mt-2">
@@ -266,7 +267,8 @@ export default function Calendar() {
                                         "ml-auto"
                                     )}
                                 >
-                                    {day?.date?.split("-").pop().replace(/^0/, "")}
+                                    {    // @ts-ignore
+                                        day?.date?.split("-").pop().replace(/^0/, "")}
                                 </time>
                                 <span className="sr-only">{day.events.length} events</span>
                                 {day.events.length > 0 && (

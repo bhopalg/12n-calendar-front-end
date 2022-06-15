@@ -4,6 +4,7 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import Header from "../components/header/header";
 import Calendar from "../components/calendar/calendar";
+import Information from "../components/information/information";
 
 const Home: NextPage = () => {
   return (
@@ -18,7 +19,9 @@ const Home: NextPage = () => {
           <div className="basis-1/2">
               <Calendar/>
           </div>
-          <div className={'basis-1/2 xl:p-0 p-10'}>Hello</div>
+          <div className={'basis-1/2 xl:p-0 p-10'}>
+              <Information/>
+          </div>
       </main>
 
     </div>
