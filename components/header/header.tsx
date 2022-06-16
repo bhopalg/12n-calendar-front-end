@@ -7,7 +7,7 @@ function Header() {
     return (
         <header className={styles['header-container'] + ' fixed right-0 left-0 z-1030 bg-'}>
             <div className="mx-auto px-4 sm:px-6">
-                <div className="flex justify-between items-center py-6 md:justify-start md:space-x-10">
+                <div className="flex justify-between items-center py-6 md:justify-between md:space-x-10">
                     <div className="flex justify-start lg:w-0 lg:flex-1">
                         <a href="#" className={'flex items-center'}>
                             <img

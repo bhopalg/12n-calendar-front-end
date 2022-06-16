@@ -12,9 +12,6 @@ import {
 import { Menu, Transition } from "@headlessui/react";
 
 const days = [
-    { date: "2022-05-27", isCurrentMonth: false, events: [] },
-    { date: "2022-05-28", isCurrentMonth: false, events: [] },
-    { date: "2022-05-29", isCurrentMonth: false, events: [] },
     { date: "2022-05-30", isCurrentMonth: false, events: [] },
     { date: "2022-05-31", isCurrentMonth: false, events: [] },
     { date: "2022-06-01", isCurrentMonth: true, events: [] },
@@ -28,14 +25,14 @@ const days = [
                 name: "Design review",
                 time: "10AM",
                 datetime: "2022-06-03T10:00",
-                href: "#",
+                websiteURL: "#",
             },
             {
                 id: 2,
                 name: "Sales meeting",
                 time: "2PM",
                 datetime: "2022-06-03T14:00",
-                href: "#",
+                websiteURL: "#",
             },
         ],
     },
@@ -51,7 +48,7 @@ const days = [
                 name: "Date night",
                 time: "6PM",
                 datetime: "2022-06-08T18:00",
-                href: "#",
+                websiteURL: "#",
             },
         ],
     },
@@ -62,21 +59,20 @@ const days = [
     {
         date: "2022-06-12",
         isCurrentMonth: true,
-        isToday: true,
         events: [
             {
                 id: 6,
                 name: "Sam's birthday party",
                 time: "2PM",
                 datetime: "2022-06-25T14:00",
-                href: "#",
+                websiteURL: "#",
             },
         ],
     },
     { date: "2022-06-13", isCurrentMonth: true, events: [] },
     { date: "2022-06-14", isCurrentMonth: true, events: [] },
     { date: "2022-06-15", isCurrentMonth: true, events: [] },
-    { date: "2022-06-16", isCurrentMonth: true, events: [] },
+    { date: "2022-06-16", isToday: true, isCurrentMonth: true, isSelected: true, events: [] },
     { date: "2022-06-17", isCurrentMonth: true, events: [] },
     { date: "2022-06-18", isCurrentMonth: true, events: [] },
     { date: "2022-06-19", isCurrentMonth: true, events: [] },
@@ -85,21 +81,21 @@ const days = [
     {
         date: "2022-06-22",
         isCurrentMonth: true,
-        isSelected: true,
+        isSelected: false,
         events: [
             {
                 id: 4,
                 name: "Maple syrup museum",
                 time: "3PM",
                 datetime: "2022-06-22T15:00",
-                href: "#",
+                websiteURL: "#",
             },
             {
                 id: 5,
                 name: "Hockey game",
                 time: "7PM",
                 datetime: "2022-06-22T19:00",
-                href: "#",
+                websiteURL: "#",
             },
         ],
     },
@@ -111,12 +107,6 @@ const days = [
     { date: "2022-06-28", isCurrentMonth: true, events: [] },
     { date: "2022-06-29", isCurrentMonth: true, events: [] },
     { date: "2022-06-30", isCurrentMonth: true, events: [] },
-    { date: "2022-07-01", isCurrentMonth: false, events: [] },
-    { date: "2022-07-02", isCurrentMonth: false, events: [] },
-    { date: "2022-07-03", isCurrentMonth: false, events: [] },
-    { date: "2022-07-04", isCurrentMonth: false, events: [] },
-    { date: "2022-07-05", isCurrentMonth: false, events: [] },
-    { date: "2022-07-06", isCurrentMonth: false, events: [] },
 ];
 const selectedDay = days.find((day) => day.isSelected);
 
@@ -130,7 +120,7 @@ export default function Calendar() {
         <div className={"lg:flex lg:h-full lg:flex-col " + styles['calendar-container']}>
             <header className={`${styles['calendar-header']} relative z-20 flex items-center justify-between border-b py-4 px-6 lg:flex-none`}>
                 <h1 className={`text-lg font-semibold ${styles['calendar-current-month']}`}>
-                    <time dateTime="2022-01">January 2022</time>
+                    <time dateTime="2022-01">June 2022</time>
                 </h1>
                 <div className="flex items-center">
                     <div className="flex items-center rounded-md shadow-sm md:items-stretch">
@@ -238,33 +228,21 @@ export default function Calendar() {
                     </div>
                     <div className="isolate grid w-full grid-cols-7 grid-rows-6 gap-px lg:hidden">
                         {days.map((day) => (
+                            day.isCurrentMonth ?
                             <button
                                 key={day.date}
                                 type="button"
                                 className={classNames(
-                                    day.isCurrentMonth ? "bg-white" : "bg-gray-50",
-                                    (day.isSelected || day.isToday) && "font-semibold",
-                                    day.isSelected && "text-white",
-                                    !day.isSelected && day.isToday && "text-indigo-600",
-                                    !day.isSelected &&
-                                    day.isCurrentMonth &&
-                                    !day.isToday &&
-                                    "text-gray-900",
-                                    !day.isSelected &&
-                                    !day.isCurrentMonth &&
-                                    !day.isToday &&
-                                    "text-gray-500",
-                                    "flex h-14 flex-col py-2 px-3 hover:bg-gray-100 focus:z-10"
-                                )}
+                                    day.isSelected && day.isToday && styles['mobile-today-col'],
+                                    day.isSelected && !day.isToday && styles['selected-mobile-day-col'],
+                                    styles['mobile-current-month-col'],
+                                    "flex h-14 flex-col py-2 px-3 hover:bg-gray-100 focus:z-10")}
                             >
                                 <time
                                     dateTime={day.date}
                                     className={classNames(
                                         day.isSelected &&
-                                        "flex h-6 w-6 items-center justify-center rounded-full",
-                                        day.isSelected && day.isToday && "bg-indigo-600",
-                                        day.isSelected && !day.isToday && "bg-gray-900",
-                                        "ml-auto"
+                                        "flex h-6 w-6 items-center justify-center rounded-full", "ml-auto"
                                     )}
                                 >
                                     {    // @ts-ignore
@@ -282,6 +260,8 @@ export default function Calendar() {
                                       </span>
                                 )}
                             </button>
+                                :
+                                <div className={'flex h-14 flex-col py-2 px-3 hover:bg-gray-100 focus:z-10'}></div>
                         ))}
                     </div>
                 </div>

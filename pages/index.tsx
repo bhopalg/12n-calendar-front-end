@@ -19,7 +19,7 @@ const Home: NextPage = () => {
           <div className="basis-1/2">
               <Calendar/>
           </div>
-          <div className={'overflow-y-auto basis-1/2 xl:p-0 p-10'}>
+          <div className={'xl:overflow-y-auto basis-1/2 xl:p-0 p-10'}>
               <Information/>
           </div>
       </main>

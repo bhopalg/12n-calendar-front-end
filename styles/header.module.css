@@ -28,4 +28,5 @@
 
 .header-container {
     background: #1a222d;
+    z-index: 1000;
 }

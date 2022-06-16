@@ -2,106 +2,70 @@ import styles from '../../styles/information.module.css';
 
 const posts = [
     {
-        title: 'Boost your conversion rate',
-        href: '#',
-        category: { name: 'Article', href: '#' },
-        description:
-            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto accusantium praesentium eius, ut atque fuga culpa, similique sequi cum eos quis dolorum.',
-        date: 'Mar 16, 2020',
-        datetime: '2020-03-16',
-        imageUrl:
-            'https://images.unsplash.com/photo-1496128858413-b36217c2ce36?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1679&q=80',
-        readingTime: '6 min',
-        author: {
-            name: 'Roel Aufderehar',
-            href: '#',
-            imageUrl:
-                'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-        },
-    },
-    {
-        title: 'How to use search engine optimization to drive sales',
-        href: '#',
-        category: { name: 'Video', href: '#' },
-        description:
-            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit facilis asperiores porro quaerat doloribus, eveniet dolore. Adipisci tempora aut inventore optio animi., tempore temporibus quo laudantium.',
-        date: 'Mar 10, 2020',
-        datetime: '2020-03-10',
-        imageUrl:
-            'https://images.unsplash.com/photo-1547586696-ea22b4d4235d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1679&q=80',
-        readingTime: '4 min',
-        author: {
-            name: 'Brenna Goyette',
-            href: '#',
-            imageUrl:
-                'https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-        },
-    },
-    {
-        title: 'Improve your customer experience',
-        href: '#',
-        category: { name: 'Case Study', href: '#' },
-        description:
-            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint harum rerum voluptatem quo recusandae magni placeat saepe molestiae, sed excepturi cumque corporis perferendis hic.',
-        date: 'Feb 12, 2020',
-        datetime: '2020-02-12',
-        imageUrl:
-            'https://images.unsplash.com/photo-1492724441997-5dc865305da7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1679&q=80',
-        readingTime: '11 min',
-        author: {
-            name: 'Daniela Metz',
-            href: '#',
-            imageUrl:
-                'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-        },
+        projectName: 'Dobies',
+        websiteURL: 'htts://dobiesnft.io',
+        description: 'No roadmap, No promises, Just vibes. Free Mint, Minting Wednesday, June 8, 3:00PM EST.',
+        datetime: '2020-03-16T12:00:00Z',
+        bannerURL: 'https://pbs.twimg.com/profile_banners/1514297054754914316/1649872947/1500x500',
+        profilePicURL: 'https://pbs.twimg.com/profile_images/1530040202739257346/T9JiQ_fg_400x400.jpg',
+        links: {
+            twitterLink: 'https://twitter.com/DobiesNFT',
+            instagramLink: 'https://discord.gg/Mrr9Q5d3NS',
+            etherscanLink: 'https://etherscan.io/address/0x9f001721bb087fbbcd6fef2c140ed6892760e71b',
+            discordLink: 'https://discord.gg/Mrr9Q5d3NS',
+            openSeaLink: 'https://opensea.io/collection/dobies-collection',
+        }
     },
 ];
 
 function Information() {
     return (
-        <div className="relative bg-gray-50 pb-20 px-4 sm:px-6 lg:pb-10 lg:px-8">
+        <div className={`${styles['info-container']} relative bg-gray-50 pb-20 px-4 sm:px-6 lg:pb-10 lg:px-8`}>
             <div className="absolute inset-0">
                 <div className={`${styles['info-back']} h-1/3 sm:h-2/3`} />
             </div>
             <div className="relative max-w-7xl mx-auto">
                 <div className="text-left">
-                    <h2 className={`${styles['info-header']} text-3xl tracking-tight font-extrabold text-gray-900 sm:text-4xl`}>January 2022</h2>
+                    <h2 className={`${styles['info-header']} text-3xl tracking-tight font-extrabold text-gray-900 sm:text-4xl`}>16th June 2022</h2>
                 </div>
-                <div className="mt-12 max-w-lg mx-auto grid gap-5 lg:grid-cols lg:max-w-none">
+                <div className="mt-12 xl:max-w-lg mx-auto grid gap-5 lg:grid-cols lg:max-w-none">
                     {posts.map((post) => (
-                        <div key={post.title} className="flex flex-col rounded-lg shadow-lg overflow-hidden">
+                        <div key={post.projectName} className="flex flex-col rounded-lg shadow-lg overflow-hidden">
                             <div className="flex-shrink-0">
-                                <img className="h-48 w-full object-cover" src={post.imageUrl} alt="" />
+                                <img className="h-48 w-full object-cover" src={post.bannerURL} alt="" />
                             </div>
-                            <div className="flex-1 bg-white p-6 flex flex-col justify-between">
+                            <div className={`${styles['event-content']} flex-1 pt-3 pr-6 pl-6 pb-6 flex flex-col justify-between`}>
                                 <div className="flex-1">
-                                    <p className="text-sm font-medium text-indigo-600">
-                                        <a href={post.category.href} className="hover:underline">
-                                            {post.category.name}
-                                        </a>
-                                    </p>
-                                    <a href={post.href} className="block mt-2">
-                                        <p className="text-xl font-semibold text-gray-900">{post.title}</p>
-                                        <p className="mt-3 text-base text-gray-500">{post.description}</p>
-                                    </a>
+                                    <div className="mt-3 flex items-center">
+                                        <div className="flex-shrink-0">
+                                            <span className="sr-only">{post.projectName}</span>
+                                            <img className="h-10 w-10 rounded-full" src={post.profilePicURL} alt="" />
+                                        </div>
+                                        <div className="ml-3">
+                                            <p className="text-xl font-semibold text-white-900">{post.projectName}</p>
+                                        </div>
+                                    </div>
+                                    <p className="mt-3 text-base text-white-500">{post.description}</p>
                                 </div>
                                 <div className="mt-6 flex items-center">
-                                    <div className="flex-shrink-0">
-                                        <a href={post.author.href}>
-                                            <span className="sr-only">{post.author.name}</span>
-                                            <img className="h-10 w-10 rounded-full" src={post.author.imageUrl} alt="" />
-                                        </a>
-                                    </div>
-                                    <div className="ml-3">
-                                        <p className="text-sm font-medium text-gray-900">
-                                            <a href={post.author.href} className="hover:underline">
-                                                {post.author.name}
-                                            </a>
-                                        </p>
-                                        <div className="flex space-x-1 text-sm text-gray-500">
-                                            <time dateTime={post.datetime}>{post.date}</time>
+                                    <div className={`${styles['event-info']} flex items-center justify-between space-x-1 text-m font-semibold text-white-900`}>
+                                        <div>
+                                            <time dateTime={post.datetime}>{post.datetime}</time>
                                             <span aria-hidden="true">&middot;</span>
-                                            <span>{post.readingTime} read</span>
+                                        </div>
+                                        <div className={'flex flex-row gap-3'}>
+                                            <a className={styles['social-links']} href={post.links.discordLink}>
+                                                <img className="h-10 w-10 rounded-full" src={'/discord.svg'} alt="" />
+                                            </a>
+                                            <a className={styles['social-links']} href={post.links.twitterLink}>
+                                                <img className="h-10 w-10 rounded-full" src={'/twitter.svg'} alt="" />
+                                            </a>
+                                            <a className={styles['social-links']} href={post.links.openSeaLink}>
+                                                <img className="h-10 w-10 rounded-full" src={'/opensea.svg'} alt="" />
+                                            </a>
+                                            <a className={styles['social-links']} href={post.links.etherscanLink}>
+                                                <img className="h-10 w-10 rounded-full" src={'/etherscan-logo-light-circle.svg'} alt="" />
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
