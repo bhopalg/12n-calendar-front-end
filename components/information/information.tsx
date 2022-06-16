@@ -20,7 +20,7 @@ const posts = [
 
 function Information() {
     return (
-        <div className={`${styles['info-container']} relative bg-gray-50 pb-20 px-4 sm:px-6 lg:pb-10 lg:px-8`}>
+        <div className={`${styles['info-container']} relative bg-gray-50 p-10 pb-20 px-4 sm:px-6 lg:pb-10 lg:px-8`}>
             <div className="absolute inset-0">
                 <div className={`${styles['info-back']} h-1/3 sm:h-2/3`} />
             </div>
