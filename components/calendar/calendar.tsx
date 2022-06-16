@@ -197,7 +197,7 @@ export default function Calendar() {
                                             <ol className="mt-2">
                                                 {day.events.slice(0, 2).map((event) => (
                                                     <li key={event.id}>
-                                                        <a href={event.href} className="group flex">
+                                                        <a href={event.websiteURL} className="group flex">
                                                             <p className={`${styles['event-name']} flex-auto truncate font-medium text-white-900 group-hover:text-indigo-600`}>
                                                                 {event.name}
                                                             </p>
