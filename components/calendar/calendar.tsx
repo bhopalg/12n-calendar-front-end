@@ -111,7 +111,6 @@ const days = [
 const selectedDay = days.find((day) => day.isSelected);
 
 function classNames(...classes: any[]) {
-    console.log(classes);
     return classes.filter(Boolean).join(" ");
 }
 
