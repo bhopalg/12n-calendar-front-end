@@ -1,7 +1,7 @@
 import styles from "../../styles/calendar.module.css";
 
 /* This example requires Tailwind CSS v2.0+ */
-import { Fragment } from "react";
+import {Fragment, useEffect, useState} from "react";
 import {
     ChevronDownIcon,
     ChevronLeftIcon,
@@ -10,6 +10,7 @@ import {
     DotsHorizontalIcon,
 } from "@heroicons/react/solid";
 import { Menu, Transition } from "@headlessui/react";
+import {gql, useApolloClient, useQuery} from "@apollo/client";
 
 const days = [
     { date: "2022-05-30", isCurrentMonth: false, events: [] },
@@ -114,7 +115,60 @@ function classNames(...classes: any[]) {
     return classes.filter(Boolean).join(" ");
 }
 
+
+// query MyQuery($between: [String] = ["2020-03-14T11:00:00Z", "2020-03-14T14:00:00Z"]) {
+//     listNFTCalendarEvents(filter: {dropDateTime: {between: $between}}) {
+//         items {
+//             bannerURL
+//         }
+//     }
+// }
+
+const QUERY = gql`
+  query listNFTCalendarEvents($between: [String!]) {
+    listNFTCalendarEvents(filter: {dropDateTime: {between: $between}}) {
+        items {
+          bannerURL
+          dropDateTime
+          description
+          id
+          links {
+            discordLink
+            etherscanLink
+            instagramLink
+            openSeaLink
+            twitterLink
+          }
+          profilePicURL
+          projectName
+          websiteURL
+        }
+      }
+  }
+`;
+
 export default function Calendar() {
+    const client = useApolloClient();
+    const [events, setEvents] = useState([]);
+
+    useEffect(() => {
+        getData();
+
+    }, []);
+
+    async function getData() {
+        const { data, loading, error } = await client.query({
+            query: QUERY,
+            variables: {
+                between: ['2020-03-15T11:00:00Z', '2020-03-15T14:00:00Z'],
+            }
+        });
+
+        console.log(data);
+        console.log(loading);
+        console.log(error);
+    }
+
     return (
         <div className={"lg:flex lg:h-full lg:flex-col " + styles['calendar-container']}>
             <header className={`${styles['calendar-header']} relative z-20 flex items-center justify-between border-b py-4 px-6 lg:flex-none`}>
@@ -210,7 +264,7 @@ export default function Calendar() {
                                                     </li>
                                                 ))}
                                                 {day.events.length > 2 && (
-                                                    <li className="text-gray-500">
+                                                    <li className="text-gray-500" key={1}>
                                                         + {day.events.length - 2} more
                                                     </li>
                                                 )}
