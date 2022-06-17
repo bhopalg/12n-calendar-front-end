@@ -11,6 +11,31 @@ import {
 } from "@heroicons/react/solid";
 import { Menu, Transition } from "@headlessui/react";
 import {gql, useApolloClient, useQuery} from "@apollo/client";
+import moment from 'moment';
+import { groupBy } from 'ramda'
+
+interface Day {
+    date: string;
+    isCurrentMonth: boolean;
+    isToday?: boolean;
+    isSelected?: boolean;
+    events: {
+        id: string;
+        projectName: string;
+        websiteURL: string;
+        description: string;
+        datetime: string;
+        bannerURL: string;
+        profilePicURL: string;
+        links: {
+            twitterLink: string;
+            instagramLink: string;
+            etherscanLink: string;
+            discordLink: string;
+            openSeaLink: string;
+        }
+    }[]
+}
 
 const days = [
     { date: "2022-05-30", isCurrentMonth: false, events: [] },
@@ -115,15 +140,6 @@ function classNames(...classes: any[]) {
     return classes.filter(Boolean).join(" ");
 }
 
-
-// query MyQuery($between: [String] = ["2020-03-14T11:00:00Z", "2020-03-14T14:00:00Z"]) {
-//     listNFTCalendarEvents(filter: {dropDateTime: {between: $between}}) {
-//         items {
-//             bannerURL
-//         }
-//     }
-// }
-
 const QUERY = gql`
   query listNFTCalendarEvents($between: [String!]) {
     listNFTCalendarEvents(filter: {dropDateTime: {between: $between}}) {
@@ -149,24 +165,87 @@ const QUERY = gql`
 
 export default function Calendar() {
     const client = useApolloClient();
-    const [events, setEvents] = useState([]);
+    const [events, setEvents] = useState([] as any);
 
     useEffect(() => {
         getData();
-
     }, []);
 
     async function getData() {
         const { data, loading, error } = await client.query({
             query: QUERY,
             variables: {
-                between: ['2020-03-15T11:00:00Z', '2020-03-15T14:00:00Z'],
+                between: ['2020-03-01T00:00:00Z', '2020-03-30T00:00:00Z'],
             }
         });
 
-        console.log(data);
-        console.log(loading);
-        console.log(error);
+        if (data?.listNFTCalendarEvents?.items.length > 0) {
+            debugger;
+            const groupedEvents = groupBy((s: any) => moment(s.dropDateTime).format('YYYY-MM-DD'), data?.listNFTCalendarEvents?.items);
+
+            // pad front and back on the list
+
+            const innerEvents: Day[] = [];
+
+            let startDateMoment: number = moment('2020-03-01', 'YYYY-MM-DD').valueOf();
+            const endDateMoment: number = moment('2020-03-31', 'YYYY-MM-DD').valueOf();
+
+            const previousMonthPad: number = 7 - moment(startDateMoment).day() - 1;
+            for (let i = 1; i <= previousMonthPad; i++) {
+                innerEvents.push({
+                    date: moment(startDateMoment).subtract(i, 'days').format('YYYY-MM-DD'),
+                    isCurrentMonth: false,
+                    events: [],
+                });
+            }
+
+            while (startDateMoment <= endDateMoment) {
+                const foundDateInGroupedData: any[] = groupedEvents[moment(startDateMoment).format('YYYY-MM-DD')];
+
+                if (foundDateInGroupedData) {
+                    const day: Day = {
+                        date: moment(startDateMoment).format('YYYY-MM-DD'),
+                        isCurrentMonth: true,
+                        events: (foundDateInGroupedData as any).map((s: any) => ({
+                            id: s.id,
+                            projectName: s.projectName,
+                            websiteURL: s.websiteURL,
+                            description: s.description,
+                            datetime: s.dropDateTime,
+                            bannerURL: s.bannerURL,
+                            profilePicURL: s.profilePicURL,
+                            links: {
+                                twitterLink: s.links.twitterLink,
+                                instagramLink: s.links.instagramLink,
+                                etherscanLink: s.links.etherscanLink,
+                                discordLink: s.links.discordLink,
+                                openSeaLink: s.links.openSeaLink,
+                            }
+                        }))
+                    }
+
+                    innerEvents.push(day);
+                } else {
+                    innerEvents.push({
+                        date: moment(startDateMoment).format('YYYY-MM-DD'),
+                        isCurrentMonth: true,
+                        events: [],
+                    });
+                }
+
+                startDateMoment = moment(startDateMoment).add(1, 'days').valueOf();
+            }
+            const nextMonthPad: number = 7 - moment(endDateMoment).days();
+            for (let i = 1; i <= nextMonthPad; i++) {
+                innerEvents.push({
+                    date: moment(endDateMoment).add(i, 'days').format('YYYY-MM-DD'),
+                    isCurrentMonth: false,
+                    events: [],
+                });
+            }
+
+            setEvents(innerEvents);
+        }
     }
 
     return (
@@ -228,7 +307,7 @@ export default function Calendar() {
 
                 <div className={"flex text-xs leading-6 text-gray-700 lg:flex-auto pl-3 pr-3 " + styles['calendar']}>
                     <div className="hidden w-full lg:grid lg:grid-cols-7 lg:grid-rows-6 lg:gap-1.5">
-                        {days.map((day) => (
+                        {events.map((day: Day) => (
                             <div
                                 key={day.date}
                                 className={`${day.isCurrentMonth ? (day.isToday ? `${styles['today-cal-col']} pl-2 pr-2 pb-2 pt-2` : `${styles['current-cal-col']} pl-2 pr-2 pb-2 pt-2`) : ('text-gray-500 relative py-2 px-3 ' + styles['cal-col'])}`}
@@ -252,13 +331,13 @@ export default function Calendar() {
                                                     <li key={event.id}>
                                                         <a href={event.websiteURL} className="group flex">
                                                             <p className={`${styles['event-name']} flex-auto truncate font-medium text-white-900 group-hover:text-indigo-600`}>
-                                                                {event.name}
+                                                                {event.projectName}
                                                             </p>
                                                             <time
                                                                 dateTime={event.datetime}
                                                                 className={`${styles['event-datetime']}  ml-3 hidden flex-none text-white-500 group-hover:text-indigo-600 xl:block`}
                                                             >
-                                                                {event.time}
+                                                                {event.datetime}
                                                             </time>
                                                         </a>
                                                     </li>
@@ -280,7 +359,7 @@ export default function Calendar() {
                         ))}
                     </div>
                     <div className="isolate grid w-full grid-cols-7 grid-rows-6 gap-px lg:hidden">
-                        {days.map((day) => (
+                        {events.map((day: Day) => (
                             day.isCurrentMonth ?
                             <button
                                 key={day.date}
