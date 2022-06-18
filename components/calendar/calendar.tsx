@@ -167,6 +167,7 @@ export default function Calendar() {
     const client = useApolloClient();
     const [events, setEvents] = useState([] as Day[]);
     const [selectedDate, setSelectedDate] = useState<Moment>(moment());
+    const [selectedEvent, setSelectedEvent] = useState<Day | null>(null);
 
     useEffect(() => {
         getData();
@@ -198,6 +199,7 @@ export default function Calendar() {
                 innerEvents.push({
                     date: moment(startDateMoment).subtract(i, 'days').format('YYYY-MM-DD'),
                     isCurrentMonth: false,
+                    isSelected: false,
                     events: [],
                 });
             }
@@ -205,10 +207,15 @@ export default function Calendar() {
             while (startDateMoment <= endDateMoment) {
                 const foundDateInGroupedData: any[] | null = groupedEvents ? groupedEvents[moment(startDateMoment).format('YYYY-MM-DD')] : null;
                 let isToday: boolean = false;
+                let isSelected: boolean = false;
                 const today = moment();
 
                 if (moment(startDateMoment).format('YYYY-MM-DD') === today.format('YYYY-MM-DD')) {
                     isToday = !isToday;
+
+                    if (!selectedEvent) {
+                        isSelected = true;
+                    }
                 }
 
                 if (foundDateInGroupedData) {
@@ -216,6 +223,7 @@ export default function Calendar() {
                         date: moment(startDateMoment).format('YYYY-MM-DD'),
                         isCurrentMonth: true,
                         isToday,
+                        isSelected,
                         events: (foundDateInGroupedData as any).map((s: any) => ({
                             id: s.id,
                             projectName: s.projectName,
@@ -240,6 +248,7 @@ export default function Calendar() {
                         date: moment(startDateMoment).format('YYYY-MM-DD'),
                         isCurrentMonth: true,
                         isToday,
+                        isSelected,
                         events: [],
                     });
                 }
@@ -250,14 +259,26 @@ export default function Calendar() {
                 innerEvents.push({
                     date: moment(endDateMoment).add(i, 'days').format('YYYY-MM-DD'),
                     isCurrentMonth: false,
+                    isSelected: false,
                     events: [],
                 });
             }
-
-        console.log(innerEvents);
-
         setEvents(innerEvents);
+    }
 
+    function desktopEventSelected(day: Day) {
+        const updatedEvents = events.map((e: Day) => {
+            let isSelected: boolean = false;
+            if (e.date === day.date) {
+                isSelected = true;
+            }
+            return {
+                ...e,
+                isSelected,
+            }
+        });
+        setEvents(updatedEvents);
+        setSelectedEvent(day);
     }
 
     return (
@@ -333,8 +354,9 @@ export default function Calendar() {
                     <div className="hidden w-full lg:grid lg:grid-cols-7 lg:grid-rows-6 lg:gap-1.5">
                         {events.map((day: Day) => (
                             <button
+                                onClick={() => desktopEventSelected(day)}
                                 key={day.date}
-                                className={`${day.isCurrentMonth ? (day.isToday ? `${styles['today-cal-col']} text-left pl-2 pr-2 pb-2 pt-2` : `${styles['current-cal-col']} text-left pl-2 pr-2 pb-2 pt-2`) : ('text-gray-500 relative py-2 px-3 ' + styles['cal-col'])}`}
+                                className={`${day.isCurrentMonth ? (day.isToday && day.isSelected ? `${styles['today-cal-col']} text-left pl-2 pr-2 pb-2 pt-2` : (day.isSelected ? `${styles['selected-cal-col']} text-left pl-2 pr-2 pb-2 pt-2` : `${styles['current-cal-col']} text-left pl-2 pr-2 pb-2 pt-2`)) : ('text-gray-500 relative py-2 px-3 ' + styles['cal-col'])}`}
                             >
                                 {
                                     day.isCurrentMonth ? <>
