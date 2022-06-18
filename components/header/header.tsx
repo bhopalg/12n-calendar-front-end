@@ -1,9 +1,26 @@
 import styles from '../../styles/header.module.css';
-// position: fixed;
-// right: 0;
-// left: 0;
-// z-index: 1030;
+import { useEffect, useState } from 'react';
+
 function Header() {
+    const [topRightButtonData, setTopRightButtonData] = useState({ link: '/', text: 'Home' });
+
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            if (window.location.href.includes('dashboard')) {
+                setTopRightButtonData({
+                    link: '/',
+                    text: 'Home',
+                });
+            } else {
+                setTopRightButtonData({
+                    link: '/dashboard',
+                    text: 'Dashboard',
+                });
+            }
+        }
+    }, []);
+
+
     return (
         <header className={styles['header-container'] + ' fixed right-0 left-0 z-1030 bg-'}>
             <div className="mx-auto px-4 sm:px-6">
@@ -24,10 +41,10 @@ function Header() {
                     <div className="md:flex items-center justify-end md:flex-1 lg:w-0 max-w-sm">
                         {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
                         <a
-                            href="/"
+                            href={topRightButtonData.link}
                             className={styles['header-home-link'] + " ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"}
                         >
-                            Home
+                            {topRightButtonData.text}
                         </a>
                     </div>
                 </div>
