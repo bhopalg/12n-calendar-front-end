@@ -16,7 +16,7 @@ function Information(props: { selectEvent: Day | null }) {
                             <h2 className={`${styles['info-header']} text-3xl tracking-tight font-extrabold text-gray-900 sm:text-4xl`}>{moment(props.selectEvent.date).format('Do MMMM YYYY')}</h2>
                         </div>
                         <div className="mt-12 xl:max-w-lg mx-auto grid gap-5 lg:grid-cols lg:max-w-none">
-                            {props.selectEvent.events.map((post) => (
+                            {props.selectEvent.events.sort((a, b) => moment(a.datetime).valueOf() - moment(b.datetime).valueOf()).map((post) => (
                                 <div key={post.projectName} className="flex flex-col rounded-lg shadow-lg overflow-hidden">
                                     <div className="flex-shrink-0">
                                         <img className="h-48 w-full object-cover" src={post.bannerURL} alt="" />
@@ -37,22 +37,24 @@ function Information(props: { selectEvent: Day | null }) {
                                         <div className="mt-6 flex items-center">
                                             <div className={`${styles['event-info']} flex items-center justify-between space-x-1 text-m font-semibold text-white-900`}>
                                                 <div>
-                                                    <time dateTime={post.datetime}>{post.datetime}</time>
-                                                    <span aria-hidden="true">&middot;</span>
+                                                    <time dateTime={post.datetime}>{moment(post.datetime).utc().format('HH:mm')}</time>
                                                 </div>
                                                 <div className={'flex flex-row gap-3'}>
-                                                    <a className={styles['social-links']} href={post.links.discordLink}>
-                                                        <img className="h-10 w-10 rounded-full" src={'/discord.svg'} alt="" />
-                                                    </a>
-                                                    <a className={styles['social-links']} href={post.links.twitterLink}>
-                                                        <img className="h-10 w-10 rounded-full" src={'/twitter.svg'} alt="" />
-                                                    </a>
-                                                    <a className={styles['social-links']} href={post.links.openSeaLink}>
-                                                        <img className="h-10 w-10 rounded-full" src={'/opensea.svg'} alt="" />
-                                                    </a>
-                                                    <a className={styles['social-links']} href={post.links.etherscanLink}>
-                                                        <img className="h-10 w-10 rounded-full" src={'/etherscan-logo-light-circle.svg'} alt="" />
-                                                    </a>
+                                                    {post.links.discordLink ? <a className={styles['social-links']} href={post.links.discordLink}>
+                                                        <img className={`${styles['social-link-image']} ${styles['discord-image']} h-10 w-10 rounded-full`} src={'/discord.svg'} alt="discord" />
+                                                    </a> : <></>}
+                                                    {post.links.twitterLink ? <a className={styles['social-links']} href={post.links.twitterLink}>
+                                                        <img className={`${styles['social-link-image']} ${styles['twitter-image']} h-10 w-10 rounded-full`} src={'/twitter.svg'} alt="twitter" />
+                                                    </a> : <></>}
+                                                    {post.links.instagramLink ? <a className={styles['social-links']} href={post.links.instagramLink}>
+                                                        <img className={`${styles['social-link-image']} ${styles['instagram-image']} h-10 w-10 rounded-full`} src={'/instagram.svg'} alt="instagram" />
+                                                    </a> : <></>}
+                                                    {post.links.openSeaLink ? <a className={styles['social-links']} href={post.links.openSeaLink}>
+                                                        <img className={`${styles['social-link-image']} ${styles['opensea-image']} h-10 w-10 rounded-full`} src={'/opensea.svg'} alt="opensea" />
+                                                    </a> : <></>}
+                                                    {post.links.etherscanLink ?<a className={styles['social-links']} href={post.links.etherscanLink}>
+                                                        <img className={`${styles['social-link-image']} ${styles['etherscan-image']} h-10 w-10 rounded-full`} src={'/etherscan-logo-light-circle.svg'} alt="etherscan" />
+                                                    </a> : <></>}
                                                 </div>
                                             </div>
                                         </div>
