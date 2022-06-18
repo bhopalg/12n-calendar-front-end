@@ -315,9 +315,9 @@ export default function Calendar() {
                 <div className={"flex text-xs leading-6 text-gray-700 lg:flex-auto pl-3 pr-3 " + styles['calendar']}>
                     <div className="hidden w-full lg:grid lg:grid-cols-7 lg:grid-rows-6 lg:gap-1.5">
                         {events.map((day: Day) => (
-                            <div
+                            <button
                                 key={day.date}
-                                className={`${day.isCurrentMonth ? (day.isToday ? `${styles['today-cal-col']} pl-2 pr-2 pb-2 pt-2` : `${styles['current-cal-col']} pl-2 pr-2 pb-2 pt-2`) : ('text-gray-500 relative py-2 px-3 ' + styles['cal-col'])}`}
+                                className={`${day.isCurrentMonth ? (day.isToday ? `${styles['today-cal-col']} text-left pl-2 pr-2 pb-2 pt-2` : `${styles['current-cal-col']} text-left pl-2 pr-2 pb-2 pt-2`) : ('text-gray-500 relative py-2 px-3 ' + styles['cal-col'])}`}
                             >
                                 {
                                     day.isCurrentMonth ? <>
@@ -343,7 +343,7 @@ export default function Calendar() {
                                     :
                                     <></>
                                 }
-                            </div>
+                            </button>
                         ))}
                     </div>
                     <div className="isolate grid w-full grid-cols-7 grid-rows-6 gap-px lg:hidden">
