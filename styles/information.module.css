@@ -31,3 +31,15 @@
 .discord-image {
     filter: invert(49%) sepia(63%) saturate(6502%) hue-rotate(225deg) brightness(98%) contrast(94%);
 }
+
+@media (max-width: 1280px) {
+    .event-card-container{
+        display: flex;
+        flex-direction: row;
+    }
+
+    .event-card {
+        min-width: 320px;
+        width: 100%;
+    }
+}

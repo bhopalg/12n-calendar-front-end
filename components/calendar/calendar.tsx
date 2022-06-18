@@ -342,7 +342,7 @@ export default function Calendar() {
                     </div>
                 </div>
             </div>
-            <div className={'xl:overflow-y-auto basis-1/2 xl:p-0 p-10'}>
+            <div className={'xl:overflow-y-auto basis-1/2 xl:p-0'}>
                 <Information selectEvent={selectedEvent}/>
             </div>
         </>
