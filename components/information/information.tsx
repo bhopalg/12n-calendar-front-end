@@ -19,14 +19,14 @@ function Information(props: { selectEvent: Day | null }) {
                             {props.selectEvent.events.sort((a, b) => moment(a.datetime).valueOf() - moment(b.datetime).valueOf()).map((post) => (
                                 <div key={post.projectName} className="flex flex-col rounded-lg shadow-lg overflow-hidden">
                                     <div className="flex-shrink-0">
-                                        <img className="h-48 w-full object-cover" src={post.bannerURL} alt="" />
+                                        <img className="h-48 w-full object-cover" src={post.bannerURL ?? '/default-banner-image.jpg' } alt="default-banner-image" />
                                     </div>
                                     <div className={`${styles['event-content']} flex-1 pt-3 pr-6 pl-6 pb-6 flex flex-col justify-between`}>
                                         <div className="flex-1">
                                             <div className="mt-3 flex items-center">
                                                 <div className="flex-shrink-0">
                                                     <span className="sr-only">{post.projectName}</span>
-                                                    <img className="h-10 w-10 rounded-full" src={post.profilePicURL} alt="" />
+                                                    <img className="h-10 w-10 rounded-full" src={post.profilePicURL ?? '/default-logo-image.jpg'} alt="default-logo-image" />
                                                 </div>
                                                 <div className="ml-3">
                                                     <p className="text-xl font-semibold text-white-900">{post.projectName}</p>
