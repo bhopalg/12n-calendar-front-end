@@ -110,7 +110,6 @@
 
 .main-container {
   padding-top: 90px;
-  height: 100vh;
 }
 
 .nft-name {
@@ -190,6 +189,15 @@
   .grid {
     width: 100%;
     flex-direction: column;
+  }
+
+  .homepage-social-link, .homepage-socials {
+    width: 100%;
+  }
+
+  .homepage-socials, .homepage-info-section {
+    padding-bottom: 10px !important;
+    padding-top: 0;
   }
 }
 

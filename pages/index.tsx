@@ -5,6 +5,7 @@ import Header from "../components/header/header";
 import { NewspaperIcon, PhoneIcon, SupportIcon } from '@heroicons/react/outline'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSquareArrowUpRight } from '@fortawesome/free-solid-svg-icons';
+import {TwitterTimelineEmbed} from "react-twitter-embed";
 
 interface SocialPanel {
     href: string;
@@ -52,8 +53,8 @@ const Home: NextPage = () => {
       <Header/>
       <main className={styles['main-container'] + ' lg:relative mb-9'}>
           <div>
-              <div className="relative pb-32 grid grid-cols-1 gap-6 sm:grid-cols-2">
-                  <div className="relative max-w-7xl mx-auto py-24 px-4 sm:py-32 sm:px-6 lg:px-8">
+              <div className="relative pb-5 xl:pb-0 grid grid-cols-1 gap-6 sm:grid-cols-2">
+                  <div className={`${styles['homepage-info-section']} relative max-w-7xl mx-auto py-24 px-4 sm:py-32 sm:px-6 lg:px-8`}>
                       <h2 className={`${styles['homepage-title']} text-4xl font-extrabold tracking-tight text-white md:text-5xl lg:text-6xl`}>
                           <span>Welcome to</span><br/>
                           <span><span className={styles['nft-name']}>NFT</span> Investor</span>
@@ -79,6 +80,24 @@ const Home: NextPage = () => {
                           </div>
                       ))}
                   </div>
+              </div>
+          </div>
+          <div className={'sm:grid sm:grid-cols-2 sm:gap-6 sm:space-y-0 lg:grid-cols-2 lg:gap-8 pr-8 pl-8 xl:pr-16 xl:pl-16'}>
+              <div className={'pb-10 xl:pb-5'}>
+                  <TwitterTimelineEmbed
+                      onLoad={function noRefCheck(){}}
+                      options={{height: 800}}
+                      screenName="nft_invest0r"
+                      sourceType="profile"
+                      theme="dark"
+                  />
+              </div>
+              <div className={'pb-10 xl:pb-5'}>
+                  {/*<TwitterTimelineEmbed*/}
+                  {/*    sourceType="profile"*/}
+                  {/*    screenName="saurabhnemade"*/}
+                  {/*    options={{height: 400}}*/}
+                  {/*/>*/}
               </div>
           </div>
       </main>
