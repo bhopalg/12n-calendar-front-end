@@ -332,16 +332,16 @@ export default function Calendar() {
                                             {    // @ts-ignore
                                                 day.date.split("-").pop().replace(/^0/, "")}
                                         </time>
-                                            <div className={'mat-2 pt-3 text-white'}>
-                                                {
-                                                    day.events.length > 0 ? <>
-                                                        {day.events.length} NFT DROP{day.events.length > 1 ? 'S' : <></>}
-                                                    </> : <></>
-                                                }
-                                            </div>
-                                        </>
-                                        :
-                                        <></>
+                                        <div className={'mat-2 md:pt-3 text-white'}>
+                                            {
+                                                day.events.length > 0 ? <>
+                                                    {day.events.length} NFT DROP{day.events.length > 1 ? 'S' : <></>}
+                                                </> : <></>
+                                            }
+                                        </div>
+                                    </>
+                                    :
+                                    <></>
                                 }
                             </div>
                         ))}
@@ -356,7 +356,7 @@ export default function Calendar() {
                                     day.isSelected && day.isToday && styles['mobile-today-col'],
                                     day.isSelected && !day.isToday && styles['selected-mobile-day-col'],
                                     styles['mobile-current-month-col'],
-                                    "flex h-14 flex-col py-2 px-3 hover:bg-gray-100 focus:z-10")}
+                                    "flex h-22 flex-col py-2 px-3 hover:bg-gray-100 focus:z-10")}
                             >
                                 <time
                                     dateTime={day.date}
@@ -368,17 +368,13 @@ export default function Calendar() {
                                     {    // @ts-ignore
                                         day?.date?.split("-").pop().replace(/^0/, "")}
                                 </time>
-                                <span className="sr-only">{day.events.length} events</span>
-                                {day.events.length > 0 && (
-                                    <span className="-mx-0.5 mt-auto flex flex-wrap-reverse">
-                                        {day.events.map((event) => (
-                                            <span
-                                                key={event.id}
-                                                className="mx-0.5 mb-1 h-1.5 w-1.5 rounded-full bg-gray-400"
-                                            />
-                                        ))}
-                                      </span>
-                                )}
+                                <div className={'mat-2 pt-3 text-white'}>
+                                    {
+                                        day.events.length > 0 ? <>
+                                            {day.events.length} NFT DROP{day.events.length > 1 ? 'S' : <></>}
+                                        </> : <></>
+                                    }
+                                </div>
                             </button>
                                 :
                                 <div className={'flex h-14 flex-col py-2 px-3 hover:bg-gray-100 focus:z-10'}></div>
