@@ -2,6 +2,37 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import Header from "../components/header/header";
+import { NewspaperIcon, PhoneIcon, SupportIcon } from '@heroicons/react/outline'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSquareArrowUpRight } from '@fortawesome/free-solid-svg-icons';
+
+interface SocialPanel {
+    href: string;
+    imageSrc: string;
+    altName: string;
+    name: string;
+}
+
+const socialPanels: SocialPanel[] = [
+    {
+        href: 'https://twitter.com/nft_invest0r?s=21&t=323gWFIORfRLGmFzqvx4og',
+        name: 'Twitter',
+        imageSrc: '/twitter.svg',
+        altName: 'Twitter',
+    },
+    {
+        href: 'https://vm.tiktok.com/ZMNYUG8xF/',
+        name: 'Tiktok',
+        imageSrc: '/tiktok.svg',
+        altName: 'Tiktok',
+    },
+    {
+        href: 'https://instagram.com/0xnftinvestor?igshid=YmMyMTA2M2Y=',
+        name: 'Instagram',
+        imageSrc: '/instagram.svg',
+        altName: 'Instagram',
+    }
+];
 
 const Home: NextPage = () => {
   return (
@@ -20,43 +51,35 @@ const Home: NextPage = () => {
       </Head>
       <Header/>
       <main className={styles['main-container'] + ' lg:relative mb-9'}>
-          <div className="mx-auto max-w-7xl w-full pt-16 pb-20 text-center lg:py-48 lg:text-left">
-              <div className="px-4 lg:w-2/3 sm:px-8 xl:pr-16">
-                  <h1 className="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl lg:text-5xl xl:text-6xl">
-                      <span className="block xl:inline text-white">Welcome to</span><br/>
-                      <span className="block xl:inline text-white"><span className={styles['nft-name']}>NFT</span> Investor</span>
-                  </h1>
-                  <p className="mt-3 max-w-md mx-auto text-lg text-gray-500 sm:text-xl md:mt-5 md:max-w-3xl text-white">
-                      We simplify the NFT market and make it possible for you to stay up to date with all things WEB3.
-                  </p>
-                  <div className="mt-10 sm:flex sm:justify-center lg:justify-start items-end">
-                      <div className={styles['email-input-container'] + ' rounded-md shadow'}>
-                          <div className="mt-1 h-14">
-                              <input
-                                  type="email"
-                                  name="email"
-                                  id="email"
-                                  className={`${styles['email-input']} pl-3 h-14 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md`}
-                                  placeholder="Email address"
-                              />
+          <div>
+              <div className="relative pb-32 grid grid-cols-1 gap-6 sm:grid-cols-2">
+                  <div className="relative max-w-7xl mx-auto py-24 px-4 sm:py-32 sm:px-6 lg:px-8">
+                      <h2 className={`${styles['homepage-title']} text-4xl font-extrabold tracking-tight text-white md:text-5xl lg:text-6xl`}>
+                          <span>Welcome to</span><br/>
+                          <span><span className={styles['nft-name']}>NFT</span> Investor</span>
+                      </h2>
+                      <h4 className={`${styles['homepage-text']} mt-6 max-w-3xl text-xl`}>
+                          We simplify the NFT market and make it possible for you to stay up to date with all things WEB3.
+                      </h4>
+                  </div>
+                  <div className={`${styles['homepage-socials']} relative max-w-7xl mx-auto py-24 px-4 sm:py-32 sm:px-6 lg:px-8 w-4/5`}>
+                      {socialPanels.map((s: SocialPanel) => (
+                          <div key={s.name} className={`${styles['homepage-social-link']} mt-5 mb-5 w-full h-20 flex flex-row items-center pr-10 pl-10 justify-between`}>
+                              <div className={'flex flex-row gap-5 items-center'}>
+                                  <div className={styles['social-links-image-container'] + ' h-15 w-15 flex p-4'}>
+                                      <img className={styles['social-image']} src={s.imageSrc} alt={s.altName}/>
+                                  </div>
+                                  <div>
+                                      <h3 className={'text-white'}>{s.name}</h3>
+                                  </div>
+                              </div>
+                              <a className={'cursor-pointer'} rel={'noreferrer'} href={s.href} target={'_blank'}>
+                                  <FontAwesomeIcon className={`${styles['social-link-icon']} w-7 h-7`} icon={faSquareArrowUpRight} />
+                              </a>
                           </div>
-                      </div>
-                      <div className="h-14 mt-3 rounded-md shadow sm:mt-0 sm:ml-3">
-                          <button
-                              className={`${styles['join-newsletter-button']} h-14 w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-gray-50 md:py-4 md:text-lg md:px-10`}
-                          >
-                              Join Newsletter
-                          </button>
-                      </div>
+                      ))}
                   </div>
               </div>
-          </div>
-          <div className="relative w-full h-64 sm:h-72 md:h-96 lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/3 lg:h-full">
-              <img
-                  className="absolute inset-0 w-full h-full object-cover"
-                  src="https://images.unsplash.com/photo-1520333789090-1afc82db536a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2102&q=80"
-                  alt=""
-              />
           </div>
       </main>
     </div>
