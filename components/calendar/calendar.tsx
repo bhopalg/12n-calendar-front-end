@@ -11,7 +11,7 @@ import {
 } from "@heroicons/react/solid";
 import { Menu, Transition } from "@headlessui/react";
 import {gql, useApolloClient, useQuery} from "@apollo/client";
-import moment from 'moment';
+import moment, {Moment} from 'moment';
 import { groupBy } from 'ramda'
 
 interface Day {
@@ -165,32 +165,36 @@ const QUERY = gql`
 
 export default function Calendar() {
     const client = useApolloClient();
-    const [events, setEvents] = useState([] as any);
+    const [events, setEvents] = useState([] as Day[]);
+    const [selectedDate, setSelectedDate] = useState<Moment>(moment());
 
     useEffect(() => {
         getData();
     }, []);
 
     async function getData() {
+        const startDate = `${selectedDate.startOf('month').format('YYYY-MM-DD')}T00:00:00Z`;
+        const endDate = `${selectedDate.endOf('month').format('YYYY-MM-DD')}T00:00:00Z`;
+
         const { data, loading, error } = await client.query({
             query: QUERY,
             variables: {
-                between: ['2020-03-01T00:00:00Z', '2020-03-30T00:00:00Z'],
+                between: [startDate, endDate],
             }
         });
 
+        let groupedEvents = null;
         if (data?.listNFTCalendarEvents?.items.length > 0) {
-            const groupedEvents = groupBy((s: any) => moment(s.dropDateTime).format('YYYY-MM-DD'), data?.listNFTCalendarEvents?.items);
-
+            groupedEvents = groupBy((s: any) => moment(s.dropDateTime).format('YYYY-MM-DD'), data?.listNFTCalendarEvents?.items);
+        }
             // pad front and back on the list
 
             const innerEvents: Day[] = [];
 
-            let startDateMoment: number = moment('2020-03-01', 'YYYY-MM-DD').valueOf();
-            const endDateMoment: number = moment('2020-03-31', 'YYYY-MM-DD').valueOf();
+            let startDateMoment: number = selectedDate.startOf('month').valueOf();
+            const endDateMoment: number = selectedDate.endOf('month').valueOf();
 
-            const previousMonthPad: number = 7 - moment(startDateMoment).day() - 1;
-            for (let i = 1; i <= previousMonthPad; i++) {
+            for (let i = 1; i < moment(startDateMoment).day(); i++) {
                 innerEvents.push({
                     date: moment(startDateMoment).subtract(i, 'days').format('YYYY-MM-DD'),
                     isCurrentMonth: false,
@@ -199,11 +203,11 @@ export default function Calendar() {
             }
 
             while (startDateMoment <= endDateMoment) {
-                const foundDateInGroupedData: any[] = groupedEvents[moment(startDateMoment).format('YYYY-MM-DD')];
+                const foundDateInGroupedData: any[] | null = groupedEvents ? groupedEvents[moment(startDateMoment).format('YYYY-MM-DD')] : null;
                 let isToday: boolean = false;
                 const today = moment();
 
-                if (moment(startDateMoment).isSame(today)) {
+                if (moment(startDateMoment).format('YYYY-MM-DD') === today.format('YYYY-MM-DD')) {
                     isToday = !isToday;
                 }
 
@@ -242,8 +246,7 @@ export default function Calendar() {
 
                 startDateMoment = moment(startDateMoment).add(1, 'days').valueOf();
             }
-            const nextMonthPad: number = 7 - moment(endDateMoment).days();
-            for (let i = 1; i <= nextMonthPad; i++) {
+            for (let i = 1; i < moment(endDateMoment).days(); i++) {
                 innerEvents.push({
                     date: moment(endDateMoment).add(i, 'days').format('YYYY-MM-DD'),
                     isCurrentMonth: false,
@@ -251,19 +254,25 @@ export default function Calendar() {
                 });
             }
 
-            setEvents(innerEvents);
-        }
+        console.log(innerEvents);
+
+        setEvents(innerEvents);
+
     }
 
     return (
         <div className={"lg:flex lg:h-full lg:flex-col " + styles['calendar-container']}>
             <header className={`${styles['calendar-header']} relative z-20 flex items-center justify-between border-b py-4 px-6 lg:flex-none`}>
                 <h1 className={`text-lg font-semibold ${styles['calendar-current-month']}`}>
-                    <time dateTime="2022-01">June 2022</time>
+                    <time dateTime={selectedDate.format('YYYY-MM')}>{selectedDate.format('MMMM YYYY')}</time>
                 </h1>
                 <div className="flex items-center">
                     <div className="flex items-center rounded-md shadow-sm md:items-stretch">
                         <button
+                            onClick={() => {
+                                setSelectedDate(selectedDate.startOf('month').subtract(1, 'month'));
+                                getData();
+                            }}
                             type="button"
                             className={`${styles['previous-month-button']} flex items-center justify-center rounded-l-md border border-r-0 border-gray-300 bg-white py-2 pl-3 pr-4 text-gray-400 hover:text-gray-500 focus:relative md:w-9 md:px-2 md:hover:bg-gray-50`}
                         >
@@ -271,6 +280,10 @@ export default function Calendar() {
                             <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
                         </button>
                         <button
+                            onClick={() => {
+                                setSelectedDate(moment());
+                                getData();
+                            }}
                             type="button"
                             className={`${styles['today-button']} hidden border-t border-b border-gray-300 bg-white px-3.5 text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900 focus:relative md:block`}
                         >
@@ -278,6 +291,10 @@ export default function Calendar() {
                         </button>
                         <span className="relative -mx-px h-5 w-px bg-gray-300 md:hidden" />
                         <button
+                            onClick={() => {
+                                setSelectedDate(selectedDate.startOf('month').add(1, 'month'));
+                                getData();
+                            }}
                             type="button"
                             className={`${styles['next-month-button']} flex items-center justify-center rounded-r-md border border-l-0 border-gray-300 bg-white py-2 pl-4 pr-3 text-gray-400 hover:text-gray-500 focus:relative md:w-9 md:px-2 md:hover:bg-gray-50`}
                         >
@@ -377,7 +394,7 @@ export default function Calendar() {
                                 </div>
                             </button>
                                 :
-                                <div className={'flex h-14 flex-col py-2 px-3 hover:bg-gray-100 focus:z-10'}></div>
+                                <div key={day.date} className={'flex h-14 flex-col py-2 px-3 hover:bg-gray-100 focus:z-10'}></div>
                         ))}
                     </div>
                 </div>
