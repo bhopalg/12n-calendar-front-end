@@ -180,7 +180,6 @@ export default function Calendar() {
         });
 
         if (data?.listNFTCalendarEvents?.items.length > 0) {
-            debugger;
             const groupedEvents = groupBy((s: any) => moment(s.dropDateTime).format('YYYY-MM-DD'), data?.listNFTCalendarEvents?.items);
 
             // pad front and back on the list
@@ -201,11 +200,18 @@ export default function Calendar() {
 
             while (startDateMoment <= endDateMoment) {
                 const foundDateInGroupedData: any[] = groupedEvents[moment(startDateMoment).format('YYYY-MM-DD')];
+                let isToday: boolean = false;
+                const today = moment();
+
+                if (moment(startDateMoment).isSame(today)) {
+                    isToday = !isToday;
+                }
 
                 if (foundDateInGroupedData) {
                     const day: Day = {
                         date: moment(startDateMoment).format('YYYY-MM-DD'),
                         isCurrentMonth: true,
+                        isToday,
                         events: (foundDateInGroupedData as any).map((s: any) => ({
                             id: s.id,
                             projectName: s.projectName,
@@ -229,6 +235,7 @@ export default function Calendar() {
                     innerEvents.push({
                         date: moment(startDateMoment).format('YYYY-MM-DD'),
                         isCurrentMonth: true,
+                        isToday,
                         events: [],
                     });
                 }
@@ -325,35 +332,16 @@ export default function Calendar() {
                                             {    // @ts-ignore
                                                 day.date.split("-").pop().replace(/^0/, "")}
                                         </time>
-                                        {day.events.length > 0 && (
-                                            <ol className="mt-2">
-                                                {day.events.slice(0, 2).map((event) => (
-                                                    <li key={event.id}>
-                                                        <a href={event.websiteURL} className="group flex">
-                                                            <p className={`${styles['event-name']} flex-auto truncate font-medium text-white-900 group-hover:text-indigo-600`}>
-                                                                {event.projectName}
-                                                            </p>
-                                                            <time
-                                                                dateTime={event.datetime}
-                                                                className={`${styles['event-datetime']}  ml-3 hidden flex-none text-white-500 group-hover:text-indigo-600 xl:block`}
-                                                            >
-                                                                {event.datetime}
-                                                            </time>
-                                                        </a>
-                                                    </li>
-                                                ))}
-                                                {day.events.length > 2 && (
-                                                    <li className="text-gray-500" key={1}>
-                                                        + {day.events.length - 2} more
-                                                    </li>
-                                                )}
-                                            </ol>
-                                        )}
-                                    </>
-                                        :
-                                        <>
-                                            <ol className="mt-2"></ol>
+                                            <div className={'mat-2 pt-3 text-white'}>
+                                                {
+                                                    day.events.length > 0 ? <>
+                                                        {day.events.length} NFT DROP{day.events.length > 1 ? 'S' : <></>}
+                                                    </> : <></>
+                                                }
+                                            </div>
                                         </>
+                                        :
+                                        <></>
                                 }
                             </div>
                         ))}
