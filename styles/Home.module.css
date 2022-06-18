@@ -113,7 +113,43 @@
   height: 100vh;
 }
 
+.nft-name {
+  color: #ed5a5a;
+}
+
+.email-input-container {
+  width: 60%;
+}
+
+.email-input {
+  caret-color: #fff;
+  background-color: #263141;
+}
+
+.join-newsletter-button {
+  border: 2px solid #828fb3;
+  cursor: pointer;
+  background-color: #1a222d;
+  color: #ffffff;
+  transition: 0.3s;
+}
+
+.join-newsletter-button:hover {
+  background-color: #ed5a5a;
+}
+
 @media (max-width: 600px) {
+  .grid {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .email-input-container {
+    width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
   .grid {
     width: 100%;
     flex-direction: column;
