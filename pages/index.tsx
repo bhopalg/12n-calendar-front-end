@@ -1,10 +1,8 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import Header from "../components/header/header";
 import Calendar from "../components/calendar/calendar";
-import Information from "../components/information/information";
 
 const Home: NextPage = () => {
   return (
@@ -16,14 +14,8 @@ const Home: NextPage = () => {
       </Head>
       <Header/>
       <main className={styles['main-container'] + ' flex xl:flex-row flex-col p-5 gap-10 mb-9'}>
-          <div className="basis-1/2">
-              <Calendar/>
-          </div>
-          <div className={'xl:overflow-y-auto basis-1/2 xl:p-0 p-10'}>
-              <Information/>
-          </div>
+          <Calendar/>
       </main>
-
     </div>
   )
 }
