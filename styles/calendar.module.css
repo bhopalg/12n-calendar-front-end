@@ -35,21 +35,17 @@
     color: #ffffff;
 }
 
-.today-cal-col {
-    background-color: #ed5a5a;
-}
-
 .mobile-current-month-col {
     background-color: #303d50;
     color: white;
     transition: 0.3s;
 }
 
-.mobile-today-col {
+.today-cal-col, .mobile-today-col {
     background-color: #ed5a5a;
 }
 
-.selected-mobile-day-col, .selected-cal-col {
+.selected-cal-col, .selected-mobile-day-col {
     background-color: #a74040;
 }
 
@@ -57,7 +53,7 @@
     transition: 0.3s;
 }
 
-.mobile-current-month-col:hover, .today-button:hover, .previous-month-button:hover, .next-month-button:hover, .today-cal-col:hover, .current-cal-col:hover {
+.today-button:hover, .previous-month-button:hover, .next-month-button:hover, .today-cal-col:hover, .current-cal-col:hover {
     background-color: #1a222d;
     color: #ffffff;
 }

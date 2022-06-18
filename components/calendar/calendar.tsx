@@ -295,39 +295,48 @@ export default function Calendar() {
                                     </button>
                                 ))}
                             </div>
+
                             <div className="isolate grid w-full grid-cols-7 grid-rows-6 gap-px lg:hidden">
-                                {events.map((day: Day) => (
-                                    day.isCurrentMonth ?
+                                {events.map((day: Day) => {
+                                    console.log(day);
+                                    let className = '';
+
+                                    if (day.isSelected && day.isToday) {
+                                        className = className + ' ' + styles['mobile-today-col'];
+                                    } else if (day.isSelected && !day.isToday) {
+                                        className = className + ' ' + styles['selected-mobile-day-col'];
+                                    }
+                                    className = className + ' ' + styles['mobile-current-month-col'] + ' flex h-14 flex-col py-2 px-3 focus:z-10';
+
+                                    return day.isCurrentMonth ?
                                         <button
                                             key={day.date}
                                             type="button"
-                                            className={classNames(
-                                                day.isSelected && day.isToday && styles['mobile-today-col'],
-                                                day.isSelected && !day.isToday && styles['selected-mobile-day-col'],
-                                                styles['mobile-current-month-col'],
-                                                "flex h-22 flex-col py-2 px-3 hover:bg-gray-100 focus:z-10")}
+                                            className={className}
+                                            onClick={() => desktopEventSelected(day)}
                                         >
                                             <time
                                                 dateTime={day.date}
                                                 className={classNames(
                                                     day.isSelected &&
-                                                    "flex h-6 w-6 items-center justify-center rounded-full", "ml-auto"
+                                                    "flex h-6 w-6 items-center justify-center rounded-full", "xl:ml-auto"
                                                 )}
                                             >
                                                 {    // @ts-ignore
                                                     day?.date?.split("-").pop().replace(/^0/, "")}
                                             </time>
-                                            <div className={'mat-2 pt-3 text-white'}>
+                                            <div className={'text-white'}>
                                                 {
                                                     day.events.length > 0 ? <>
-                                                        {day.events.length} NFT DROP{day.events.length > 1 ? 'S' : <></>}
+                                                        {day.events.length >= 10 ? String(day.events.length).substring(0, 1) : day.events.length}...
                                                     </> : <></>
                                                 }
                                             </div>
                                         </button>
                                         :
-                                        <div key={day.date} className={'flex h-14 flex-col py-2 px-3 hover:bg-gray-100 focus:z-10'}></div>
-                                ))}
+                                        <div key={day.date}
+                                             className={'flex h-14 flex-col py-2 px-3 hover:bg-gray-100 focus:z-10'}></div>
+                                })}
                             </div>
                         </div>
                     </div>
