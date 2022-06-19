@@ -6,7 +6,7 @@ import {useState} from "react";
 
 function Information(props: { selectEvent: Day | null }) {
     const [tooltip, showTooltip] = useState(true);
-
+    console.log(props);
     return (
         <>
             {
@@ -60,7 +60,7 @@ function Information(props: { selectEvent: Day | null }) {
                                                     </div>
                                                     <div className={'flex flex-col'}>
                                                         <label>Supply</label>
-                                                        <span>{post?.supply && !isNaN(post.supply) ? post?.supply.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : <></>}</span>
+                                                        <span>{post?.supply ? post?.supply.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : <></>}</span>
                                                     </div>
                                                 </div>
                                             </div>

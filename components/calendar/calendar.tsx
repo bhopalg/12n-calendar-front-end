@@ -136,6 +136,9 @@ export default function Calendar() {
                             datetime: s.dropDateTime,
                             bannerURL: s.bannerURL,
                             profilePicURL: s.profilePicURL,
+                            supply: s.supply,
+                            blockchain: s.blockchain,
+                            mintPrice: s.mintPrice,
                             links: {
                                 twitterLink: s.links.twitterLink,
                                 instagramLink: s.links.instagramLink,
