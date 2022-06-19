@@ -24,6 +24,9 @@ export interface Day {
         datetime: string;
         bannerURL: string;
         profilePicURL: string;
+        mintPrice: string;
+        blockchain: string;
+        supply: number;
         links: {
             twitterLink: string;
             instagramLink: string;
@@ -45,6 +48,9 @@ const QUERY = gql`
           bannerURL
           dropDateTime
           description
+          mintPrice
+          blockchain
+          supply
           id
           links {
             discordLink
@@ -298,7 +304,6 @@ export default function Calendar() {
 
                             <div className="isolate grid w-full grid-cols-7 grid-rows-6 gap-px lg:hidden">
                                 {events.map((day: Day) => {
-                                    console.log(day);
                                     let className = '';
 
                                     if (day.isSelected && day.isToday) {
