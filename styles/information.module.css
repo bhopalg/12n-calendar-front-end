@@ -32,6 +32,10 @@
     filter: invert(49%) sepia(63%) saturate(6502%) hue-rotate(225deg) brightness(98%) contrast(94%);
 }
 
+.event-card-container {
+    background-color: #263141;
+}
+
 @media (max-width: 1280px) {
     .event-card-container{
         display: flex;
