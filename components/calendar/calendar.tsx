@@ -42,8 +42,8 @@ function classNames(...classes: any[]) {
 }
 
 const QUERY = gql`
-  query listNFTCalendarEvents($between: [String!]) {
-    listNFTCalendarEvents(filter: {dropDateTime: {between: $between}}) {
+  query listNftcalendars($between: [String!]) {
+      listNftcalendars(filter: {dropDateTime: {between: $between}}) {
         items {
           bannerURL
           dropDateTime
