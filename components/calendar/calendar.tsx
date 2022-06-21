@@ -89,97 +89,96 @@ export default function Calendar() {
         });
 
         let groupedEvents = null;
-        if (data?.listNFTCalendarEvents?.items.length > 0) {
-            groupedEvents = groupBy((s: any) => moment(s.dropDateTime).format('YYYY-MM-DD'), data?.listNFTCalendarEvents?.items);
+        if (data?.listNftcalendars?.items.length > 0) {
+            groupedEvents = groupBy((s: any) => moment(s.dropDateTime).format('YYYY-MM-DD'), data?.listNftcalendars?.items);
         }
-            // pad front and back on the list
 
-            const innerEvents: Day[] = [];
+        const innerEvents: Day[] = [];
 
-            let startDateMoment: number = selectedDate.startOf('month').valueOf();
-            const endDateMoment: number = selectedDate.endOf('month').valueOf();
+        let startDateMoment: number = selectedDate.startOf('month').valueOf();
+        const endDateMoment: number = selectedDate.endOf('month').valueOf();
 
-            for (let i = 1; i < moment(startDateMoment).day(); i++) {
-                innerEvents.push({
-                    date: moment(startDateMoment).subtract(i, 'days').format('YYYY-MM-DD'),
-                    isCurrentMonth: false,
-                    isSelected: false,
-                    events: [],
-                });
+        for (let i = 1; i < moment(startDateMoment).day(); i++) {
+            innerEvents.push({
+                date: moment(startDateMoment).subtract(i, 'days').format('YYYY-MM-DD'),
+                isCurrentMonth: false,
+                isSelected: false,
+                events: [],
+            });
+        }
+
+        while (startDateMoment <= endDateMoment) {
+            const foundDateInGroupedData: any[] | null = groupedEvents ? groupedEvents[moment(startDateMoment).format('YYYY-MM-DD')] : null;
+            let isToday: boolean = false;
+            let isSelected: boolean = false;
+            const today = moment();
+
+            if (moment(startDateMoment).format('YYYY-MM-DD') === today.format('YYYY-MM-DD')) {
+                isToday = !isToday;
+
+                if (!selectedEvent) {
+                    isSelected = true;
+                }
             }
 
-            while (startDateMoment <= endDateMoment) {
-                const foundDateInGroupedData: any[] | null = groupedEvents ? groupedEvents[moment(startDateMoment).format('YYYY-MM-DD')] : null;
-                let isToday: boolean = false;
-                let isSelected: boolean = false;
-                const today = moment();
-
-                if (moment(startDateMoment).format('YYYY-MM-DD') === today.format('YYYY-MM-DD')) {
-                    isToday = !isToday;
-
-                    if (!selectedEvent) {
-                        isSelected = true;
-                    }
+            if (foundDateInGroupedData) {
+                const day: Day = {
+                    date: moment(startDateMoment).format('YYYY-MM-DD'),
+                    isCurrentMonth: true,
+                    isToday,
+                    isSelected,
+                    events: (foundDateInGroupedData as any).map((s: any) => ({
+                        id: s.id,
+                        projectName: s.projectName,
+                        websiteURL: s.websiteURL,
+                        description: s.description,
+                        datetime: s.dropDateTime,
+                        bannerURL: s.bannerURL,
+                        profilePicURL: s.profilePicURL,
+                        supply: s.supply,
+                        blockchain: s.blockchain,
+                        mintPrice: s.mintPrice,
+                        links: {
+                            twitterLink: s.links.twitterLink,
+                            instagramLink: s.links.instagramLink,
+                            etherscanLink: s.links.etherscanLink,
+                            discordLink: s.links.discordLink,
+                            openSeaLink: s.links.openSeaLink,
+                        }
+                    }))
                 }
 
-                if (foundDateInGroupedData) {
-                    const day: Day = {
-                        date: moment(startDateMoment).format('YYYY-MM-DD'),
-                        isCurrentMonth: true,
-                        isToday,
-                        isSelected,
-                        events: (foundDateInGroupedData as any).map((s: any) => ({
-                            id: s.id,
-                            projectName: s.projectName,
-                            websiteURL: s.websiteURL,
-                            description: s.description,
-                            datetime: s.dropDateTime,
-                            bannerURL: s.bannerURL,
-                            profilePicURL: s.profilePicURL,
-                            supply: s.supply,
-                            blockchain: s.blockchain,
-                            mintPrice: s.mintPrice,
-                            links: {
-                                twitterLink: s.links.twitterLink,
-                                instagramLink: s.links.instagramLink,
-                                etherscanLink: s.links.etherscanLink,
-                                discordLink: s.links.discordLink,
-                                openSeaLink: s.links.openSeaLink,
-                            }
-                        }))
-                    }
-
-                    if (isSelected) {
-                        setSelectedEvent(day);
-                    }
-
-                    innerEvents.push(day);
-                } else {
-                    const day = {
-                        date: moment(startDateMoment).format('YYYY-MM-DD'),
-                        isCurrentMonth: true,
-                        isToday,
-                        isSelected,
-                        events: [],
-                    };
-
-                    if (isSelected) {
-                        setSelectedEvent(day);
-                    }
-
-                    innerEvents.push(day);
+                if (isSelected) {
+                    setSelectedEvent(day);
                 }
 
-                startDateMoment = moment(startDateMoment).add(1, 'days').valueOf();
-            }
-            for (let i = 1; i < moment(endDateMoment).days(); i++) {
-                innerEvents.push({
-                    date: moment(endDateMoment).add(i, 'days').format('YYYY-MM-DD'),
-                    isCurrentMonth: false,
-                    isSelected: false,
+                innerEvents.push(day);
+            } else {
+                const day = {
+                    date: moment(startDateMoment).format('YYYY-MM-DD'),
+                    isCurrentMonth: true,
+                    isToday,
+                    isSelected,
                     events: [],
-                });
+                };
+
+                if (isSelected) {
+                    setSelectedEvent(day);
+                }
+
+                innerEvents.push(day);
             }
+
+            startDateMoment = moment(startDateMoment).add(1, 'days').valueOf();
+        }
+        for (let i = 1; i < moment(endDateMoment).days(); i++) {
+            innerEvents.push({
+                date: moment(endDateMoment).add(i, 'days').format('YYYY-MM-DD'),
+                isCurrentMonth: false,
+                isSelected: false,
+                events: [],
+            });
+        }
         setEvents(innerEvents);
     }
 

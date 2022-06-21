@@ -66,19 +66,19 @@ function Information(props: { selectEvent: Day | null }) {
                                             </div>
                                             <div className={'mt-6'}>
                                                 <div className={'flex flex-row gap-3'}>
-                                                    {post.links.discordLink ? <a className={styles['social-links']} href={post.links.discordLink}>
+                                                    {post.links.discordLink && post.links.discordLink != '' ? <a className={styles['social-links']} href={post.links.discordLink}>
                                                         <img className={`${styles['social-link-image']} ${styles['discord-image']} h-10 w-10 rounded-full`} src={'/discord.svg'} alt="discord" />
                                                     </a> : <></>}
-                                                    {post.links.twitterLink ? <a className={styles['social-links']} href={post.links.twitterLink}>
+                                                    {post.links.twitterLink && post.links.twitterLink != '' ? <a className={styles['social-links']} href={post.links.twitterLink}>
                                                         <img className={`${styles['social-link-image']} ${styles['twitter-image']} h-10 w-10 rounded-full`} src={'/twitter.svg'} alt="twitter" />
                                                     </a> : <></>}
-                                                    {post.links.instagramLink ? <a className={styles['social-links']} href={post.links.instagramLink}>
+                                                    {post.links.instagramLink && post.links.instagramLink != '' ? <a className={styles['social-links']} href={post.links.instagramLink}>
                                                         <img className={`${styles['social-link-image']} ${styles['instagram-image']} h-10 w-10 rounded-full`} src={'/instagram.svg'} alt="instagram" />
                                                     </a> : <></>}
-                                                    {post.links.openSeaLink ? <a className={styles['social-links']} href={post.links.openSeaLink}>
+                                                    {post.links.openSeaLink && post.links.openSeaLink != '' ? <a className={styles['social-links']} href={post.links.openSeaLink}>
                                                         <img className={`${styles['social-link-image']} ${styles['opensea-image']} h-10 w-10 rounded-full`} src={'/opensea.svg'} alt="opensea" />
                                                     </a> : <></>}
-                                                    {post.links.etherscanLink ?<a className={styles['social-links']} href={post.links.etherscanLink}>
+                                                    {post.links.etherscanLink && post.links.etherscanLink != '' ?<a className={styles['social-links']} href={post.links.etherscanLink}>
                                                         <img className={`${styles['social-link-image']} ${styles['etherscan-image']} h-10 w-10 rounded-full`} src={'/etherscan-logo-light-circle.svg'} alt="etherscan" />
                                                     </a> : <></>}
                                                 </div>
