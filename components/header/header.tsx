@@ -2,24 +2,24 @@ import styles from '../../styles/header.module.scss';
 import { useEffect, useState } from 'react';
 import NewsletterSubscribe from "../newsletter/newsletter-subscribe";
 import { useMediaQuery } from 'react-responsive';
+import {useRouter} from "next/router";
 
 function Header() {
     const [topRightButtonData, setTopRightButtonData] = useState({ link: '/', text: 'Home' });
     const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1280px)' })
+    const router = useRouter();
 
     useEffect(() => {
-        if (typeof window !== 'undefined') {
-            if (window.location.href.includes('dashboard')) {
-                setTopRightButtonData({
-                    link: '/',
-                    text: 'Home',
-                });
-            } else {
-                setTopRightButtonData({
-                    link: '/dashboard',
-                    text: 'Dashboard',
-                });
-            }
+        if (router.pathname === '/dashboard') {
+            setTopRightButtonData({
+                link: '/',
+                text: 'Home',
+            });
+        } else {
+            setTopRightButtonData({
+                link: '/dashboard',
+                text: 'Dashboard',
+            });
         }
     }, []);
 

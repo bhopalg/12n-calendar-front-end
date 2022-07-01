@@ -6,7 +6,6 @@ import {useState} from "react";
 
 function Information(props: { selectEvent: Day | null }) {
     const [tooltip, showTooltip] = useState(true);
-    console.log(props);
     return (
         <>
             {

@@ -1,6 +1,7 @@
-import { KeyboardEvent, useState} from 'react';
+import {KeyboardEvent, useEffect, useState} from 'react';
 import {decode} from 'html-entities';
 import styles from '../../styles/newsletter-form.module.scss';
+import Notification from "../notification/notification";
 
 interface Props {
     message: string | null | Error;
@@ -11,12 +12,45 @@ interface Props {
 const NewsletterForm = ({status, message, onValidated}: Props) => {
     const [error, setError] = useState<string | null>(null);
     const [email, setEmail] = useState<string | null>(null);
+    const [showNotification, setShowNotification] = useState<boolean>(false);
+    const [notificationSettings, setNotificationSettings] = useState<{
+        message: string;
+        status: 'error' | 'success' | 'sending'
+    }>();
 
-    const handleFormSubmit = () => {
+    useEffect(() => {
+        if (status === 'sending') {
+            setNotificationSettings({
+                status: 'sending',
+                message: 'Sending...',
+            });
+            setShowNotification(true);
+        } else if (status === 'error' || error) {
+            setNotificationSettings({
+                status: 'error',
+                message: error || getMessage(message as string),
+            });
+            setShowNotification(true);
+        } else if (status === "success" && status !== "error" && !error) {
+            setNotificationSettings({
+                status: 'success',
+                message: decode(message as string),
+            });
+            setShowNotification(true);
+        } else {
+            setShowNotification(false);
+        }
+    }, [status]);
+
+    const handleFormSubmit = (event) => {
+        event.preventDefault();
         setError(null);
 
         if (!email) {
-            setError('Please enter a valid email address');
+            setNotificationSettings({
+                status: 'error',
+                message: 'Please enter a valid email address'
+            });
             return null;
         }
 
@@ -28,7 +62,7 @@ const NewsletterForm = ({status, message, onValidated}: Props) => {
         setError(null);
         if (event.key === 'Enter') {
             event.preventDefault();
-            handleFormSubmit();
+            handleFormSubmit(event);
         }
     }
 
@@ -41,11 +75,21 @@ const NewsletterForm = ({status, message, onValidated}: Props) => {
             return decode(message);
         }
         const formattedMessage = result?.[1]?.trim() ?? null;
+
         return formattedMessage ? decode( formattedMessage ) : null;
     }
 
     return (
         <>
+            {
+                showNotification ?
+                    <Notification
+                        show={showNotification}
+                        message={notificationSettings?.message}
+                        status={notificationSettings?.status}
+                        setShow={setShowNotification}/>
+                    : <></>
+            }
             <div className={`${styles['newsletter-container']}`}>
                 <div className="">
                     <form className="sm:flex sm:items-center">
@@ -54,6 +98,8 @@ const NewsletterForm = ({status, message, onValidated}: Props) => {
                         </div>
                         <div className="w-full sm:max-w-xs">
                             <input
+                                onChange={(event) => setEmail(event?.target?.value ?? '')}
+                                onKeyUp={(event) => handleInputKeyEvent(event)}
                                 type="email"
                                 name="email"
                                 id="email"
@@ -64,45 +110,12 @@ const NewsletterForm = ({status, message, onValidated}: Props) => {
                         <button
                             type="submit"
                             className={`${styles['email-button']} w-full inline-flex items-center justify-center px-4 py-2 font-medium rounded-md text-white sm:mt-0 sm:ml-3 sm:w-auto border border-transparent`}
+                            onClick={(e) => handleFormSubmit(e)}
                         >
                             Submit
                         </button>
                     </form>
                 </div>
-            </div>
-        </>
-    );
-
-    return (
-        <>
-            <div className="d-flex newsletter-input-fields">
-                <div className="mc-field-group">
-                    <input
-                        // @ts-ignore
-                        onChange={(event) => setEmail(event?.target?.value ?? '')}
-                        type="email"
-                        placeholder="Your email"
-                        className="mr-2"
-                        onKeyUp={(event) => handleInputKeyEvent(event)}
-                    />
-                </div>
-                <div className="button-wrap wp-block-button">
-                    <button className="wp-block-button__link" onClick={handleFormSubmit}>
-                        Submit
-                    </button>
-                </div>
-            </div>
-            <div className="newsletter-form-info">
-                {status === "sending" && <div>Sending...</div>}
-                {status === "error" || error ? (
-                    <div
-                        className="newsletter-form-error"
-                        dangerouslySetInnerHTML={{ __html: error || getMessage(message as string) }}
-                    />
-                ) : null }
-                {status === "success" && status !== "error" && !error && (
-                    <div dangerouslySetInnerHTML={{ __html: decode(message as string) }} />
-                )}
             </div>
         </>
     );
