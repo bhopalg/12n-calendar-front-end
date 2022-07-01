@@ -1,4 +1,4 @@
-import styles from '../../styles/information.module.css';
+import styles from '../../styles/information.module.scss';
 import {Day} from "../calendar/calendar";
 import moment from 'moment';
 import ReactTooltip from 'react-tooltip';

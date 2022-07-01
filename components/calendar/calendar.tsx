@@ -1,4 +1,4 @@
-import styles from "../../styles/calendar.module.css";
+import styles from "../../styles/calendar.module.scss";
 
 /* This example requires Tailwind CSS v2.0+ */
 import {useEffect, useState} from "react";

@@ -1,6 +1,6 @@
 import { KeyboardEvent, useState} from 'react';
 import {decode} from 'html-entities';
-import styles from '../../styles/newsletter-form.module.css'
+import styles from '../../styles/newsletter-form.module.scss';
 
 interface Props {
     message: string | null | Error;

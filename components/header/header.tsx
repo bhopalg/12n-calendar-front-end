@@ -1,4 +1,4 @@
-import styles from '../../styles/header.module.css';
+import styles from '../../styles/header.module.scss';
 import { useEffect, useState } from 'react';
 import NewsletterSubscribe from "../newsletter/newsletter-subscribe";
 import { useMediaQuery } from 'react-responsive';
