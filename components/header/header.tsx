@@ -40,7 +40,7 @@ function Header() {
                             </h1>
                         </a>
                     </div>
-                    <div className="md:flex items-center justify-end md:flex-1 lg:w-0">
+                    <div className={`${styles['right-nav']} md:flex items-center justify-end md:flex-1 lg:w-0`}>
                         {!isTabletOrMobile ? <NewsletterSubscribe/> : <></>}
                         {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
                         <a
