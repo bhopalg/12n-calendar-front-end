@@ -1,8 +1,11 @@
 import styles from '../../styles/header.module.css';
 import { useEffect, useState } from 'react';
+import NewsletterSubscribe from "../newsletter/newsletter-subscribe";
+import { useMediaQuery } from 'react-responsive';
 
 function Header() {
     const [topRightButtonData, setTopRightButtonData] = useState({ link: '/', text: 'Home' });
+    const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1280px)' })
 
     useEffect(() => {
         if (typeof window !== 'undefined') {
@@ -19,7 +22,6 @@ function Header() {
             }
         }
     }, []);
-
 
     return (
         <header className={styles['header-container'] + ' fixed right-0 left-0 z-1030 bg-'}>
@@ -38,7 +40,8 @@ function Header() {
                             </h1>
                         </a>
                     </div>
-                    <div className="md:flex items-center justify-end md:flex-1 lg:w-0 max-w-sm">
+                    <div className="md:flex items-center justify-end md:flex-1 lg:w-0">
+                        {!isTabletOrMobile ? <NewsletterSubscribe/> : <></>}
                         {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
                         <a
                             href={topRightButtonData.link}

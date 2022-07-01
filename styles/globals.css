@@ -19,3 +19,7 @@ a {
 * {
   box-sizing: border-box;
 }
+
+:global(.js-focus-visible) :focus:not(.focus-visible) {
+  outline: none;
+}
