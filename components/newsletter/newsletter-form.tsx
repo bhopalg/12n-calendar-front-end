@@ -47,8 +47,11 @@ const NewsletterForm = ({status, message, onValidated}: Props) => {
     return (
         <>
             <div className={`${styles['newsletter-container']}`}>
-                <div className="px-4 py-5 sm:p-6">
+                <div className="">
                     <form className="sm:flex sm:items-center">
+                        <div className={`${styles['newsletter-text']} text-white pr-5`}>
+                            Subscribe to newsletter
+                        </div>
                         <div className="w-full sm:max-w-xs">
                             <input
                                 type="email"

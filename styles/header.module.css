@@ -15,14 +15,14 @@
 
 .header-home-link {
     border-color: #ed5a5a;
-    color: #ed5a5a;
+    color: #fff;
     background: transparent;
     transition: 0.3s;
 }
 
 .header-home-link:hover {
     border-color: #ed5a5a;
-    color: #ed5a5a;
+    color: #fff;
     background: #303d50;
 }
 
