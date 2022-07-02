@@ -1,16 +1,8 @@
-import {KeyboardEvent, useEffect, useState} from 'react';
-import {decode} from 'html-entities';
+import { KeyboardEvent, useState } from 'react';
 import styles from '../../styles/newsletter-form.module.scss';
 import Notification from "../notification/notification";
 
-interface Props {
-    message: string | null | Error;
-    status: any;
-    onValidated: ({EMAIL}: {EMAIL: string}) => any;
-}
-
-const NewsletterForm = ({status, message, onValidated}: Props) => {
-    const [error, setError] = useState<string | null>(null);
+const NewsletterForm = () => {
     const [email, setEmail] = useState<string | null>(null);
     const [showNotification, setShowNotification] = useState<boolean>(false);
     const [notificationSettings, setNotificationSettings] = useState<{
@@ -18,65 +10,60 @@ const NewsletterForm = ({status, message, onValidated}: Props) => {
         status: 'error' | 'success' | 'sending'
     }>();
 
-    useEffect(() => {
-        if (status === 'sending') {
-            setNotificationSettings({
-                status: 'sending',
-                message: 'Sending...',
-            });
-            setShowNotification(true);
-        } else if (status === 'error' || error) {
-            setNotificationSettings({
-                status: 'error',
-                message: error || getMessage(message as string),
-            });
-            setShowNotification(true);
-        } else if (status === "success" && status !== "error" && !error) {
-            setNotificationSettings({
-                status: 'success',
-                message: decode(message as string),
-            });
-            setShowNotification(true);
-        } else {
-            setShowNotification(false);
-        }
-    }, [status]);
-
-    const handleFormSubmit = (event) => {
+    const handleFormSubmit = async (event: any) => {
         event.preventDefault();
-        setError(null);
 
         if (!email) {
+            setShowNotification(true);
             setNotificationSettings({
+                message: 'Please enter a vaild email',
                 status: 'error',
-                message: 'Please enter a valid email address'
             });
-            return null;
+            return;
         }
 
-        const isFormValidated: boolean = onValidated({EMAIL: email});
-        return email && (email as string).indexOf("@") > -1 && isFormValidated;
+        setNotificationSettings({
+            message: 'Sending....',
+            status: 'sending',
+        });
+        setShowNotification(true);
+
+        const res = await fetch("/api/newsletter-subscribe", {
+            body: JSON.stringify({
+                email: email,
+            }),
+
+            headers: {
+                "Content-Type": "application/json",
+            },
+
+            method: "POST",
+        });
+        const results = await res.json();
+
+        if (res.status >= 400) {
+            setShowNotification(true);
+            setNotificationSettings({
+                message: results?.error,
+                status: 'error',
+            });
+            return;
+        }
+
+        setShowNotification(true);
+        setNotificationSettings({
+            message: 'Successfully subscribed',
+            status: 'success',
+        });
+        return;
+
     }
 
     const handleInputKeyEvent = (event: KeyboardEvent<HTMLInputElement> ) => {
-        setError(null);
         if (event.key === 'Enter') {
             event.preventDefault();
             handleFormSubmit(event);
         }
-    }
-
-    const getMessage = (message: string): null | any => {
-        if ( !message ) {
-            return null;
-        }
-        const result = message?.split('-') ?? null;
-        if ( "0" !== result?.[0]?.trim() ) {
-            return decode(message);
-        }
-        const formattedMessage = result?.[1]?.trim() ?? null;
-
-        return formattedMessage ? decode( formattedMessage ) : null;
     }
 
     return (
