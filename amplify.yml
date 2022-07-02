@@ -1,0 +1,21 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - yarn install
+    build:
+      commands:
+        - export NEXT_MAILCHIMP_AUDIENCE_ID=${NEXT_MAILCHIMP_AUDIENCE_ID}
+        - export NEXT_MAILCHIMP_API_KEY=${NEXT_MAILCHIMP_API_KEY}
+        - export NEXT_MAILCHIMP_API_SERVER=${NEXT_MAILCHIMP_API_SERVER}
+        - yum install -y gettext
+        - envsubst < .env.compile > .env
+        - yarn run build
+  artifacts:
+    baseDirectory: .next
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - node_modules/**/*
