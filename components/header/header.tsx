@@ -1,8 +1,9 @@
 import styles from '../../styles/header.module.scss';
 import { useEffect, useState } from 'react';
-import NewsletterSubscribe from "../newsletter/newsletter-subscribe";
+// import NewsletterSubscribe from "../newsletter/newsletter-subscribe";
 import { useMediaQuery } from 'react-responsive';
 import {useRouter} from "next/router";
+import NewsletterForm from "../newsletter/newsletter-form";
 
 function Header() {
     const [topRightButtonData, setTopRightButtonData] = useState({ link: '/', text: 'Home' });
@@ -41,7 +42,7 @@ function Header() {
                         </a>
                     </div>
                     <div className={`${styles['right-nav']} md:flex items-center justify-end md:flex-1 lg:w-0`}>
-                        {!isTabletOrMobile ? <NewsletterSubscribe/> : <></>}
+                        {!isTabletOrMobile ? <NewsletterForm/> : <></>}
                         {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
                         <a
                             href={topRightButtonData.link}
