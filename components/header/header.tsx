@@ -18,8 +18,8 @@ function Header() {
             });
         } else {
             setTopRightButtonData({
-                link: '/dashboard',
-                text: 'Dashboard',
+                link: '/calendar',
+                text: 'Calendar',
             });
         }
     }, []);

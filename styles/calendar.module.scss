@@ -49,6 +49,12 @@
     background-color: #a74040;
 }
 
+.today-cal-col, .current-cal-col {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+
 .today-button, .previous-month-button, .next-month-button {
     transition: 0.3s;
 }

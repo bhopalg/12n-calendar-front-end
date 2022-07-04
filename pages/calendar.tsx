@@ -4,7 +4,7 @@ import styles from '../styles/Home.module.scss'
 import Header from "../components/header/header";
 import Calendar from "../components/calendar/calendar";
 
-const Home: NextPage = () => {
+const CalendarPage: NextPage = () => {
   return (
     <div className={'max-w-7xl m-auto'}>
       <Head>
@@ -27,4 +27,4 @@ const Home: NextPage = () => {
   )
 }
 
-export default Home
+export default CalendarPage
